@@ -54,8 +54,8 @@ public class SplashActivity extends AppCompatActivity {
         try {
             new Handler(Looper.getMainLooper()).postDelayed(() -> {
                 try {
-                    //Intent intent = new Intent(SplashActivity.this, LoginActivity.class);
-                    Intent intent = new Intent(SplashActivity.this, TestActivity.class);
+                    Intent intent = new Intent(SplashActivity.this, LoginActivity.class);
+                    //Intent intent = new Intent(SplashActivity.this, TestActivity.class);
                     intent.setFlags(FLAG_ACTIVITY_CLEAR_TOP|FLAG_ACTIVITY_SINGLE_TOP);
                     startActivity(intent);
                 }catch (Exception e){

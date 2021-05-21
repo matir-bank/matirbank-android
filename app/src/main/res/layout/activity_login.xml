@@ -18,11 +18,11 @@
             android:id="@+id/layoutLogo"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="16dp"
-            android:layout_marginTop="32dp"
-            android:layout_marginRight="16dp"
+            android:background="@color/primaryColor"
             android:gravity="center"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:paddingTop="32dp"
+            android:paddingBottom="32dp">
 
             <LinearLayout
                 android:id="@+id/layoutLogoText"
@@ -38,7 +38,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     app:srcCompat="@drawable/text_matir_bank"
-                    app:tint="@color/primaryColor" />
+                    app:tint="@color/white" />
 
                 <ImageView
                     android:id="@+id/imgMobileFinancialService"
@@ -46,7 +46,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     app:srcCompat="@drawable/text_mobile_financial_service"
-                    app:tint="@color/primaryColor" />
+                    app:tint="@color/white" />
             </LinearLayout>
 
         </LinearLayout>

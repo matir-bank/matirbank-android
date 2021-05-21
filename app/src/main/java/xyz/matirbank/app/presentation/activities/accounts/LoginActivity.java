@@ -61,6 +61,7 @@ public class LoginActivity extends AppCompatActivity {
         binding.txtRegister.setOnClickListener(v -> {
             Intent intent = new Intent(this, RegisterActivity.class);
             startActivity(intent);
+            overridePendingTransition(0,0);
         });
 
     }
