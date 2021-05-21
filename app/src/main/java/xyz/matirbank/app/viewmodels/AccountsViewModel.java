@@ -1,29 +1,36 @@
 package xyz.matirbank.app.viewmodels;
 
 import android.app.Application;
+import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 
-import okhttp3.ResponseBody;
-import xyz.matirbank.app.entities.api.accounts.Login;
-import xyz.matirbank.app.entities.api.accounts.Register;
+import xyz.matirbank.app.api.entities.accounts.requests.Login;
+import xyz.matirbank.app.api.entities.accounts.responses.AccountResponse;
+import xyz.matirbank.app.api.entities.accounts.responses.LoginResponse;
+import xyz.matirbank.app.api.entities.accounts.requests.Register;
+import xyz.matirbank.app.api.entities.accounts.responses.RegisterResponse;
+import xyz.matirbank.app.api.entities.base.ResponseContainer;
 import xyz.matirbank.app.repositories.AccountsRepository;
 
 public class AccountsViewModel extends AndroidViewModel {
 
     private final AccountsRepository accountsRepository;
-    private final LiveData<ResponseBody> account;
-    private final LiveData<ResponseBody> accountsRegister;
-    private final LiveData<ResponseBody> accountsLogin;
-    private final LiveData<ResponseBody> accountsLogout;
-    private final LiveData<ResponseBody> accountsLogoutAll;
+    private final LiveData<ResponseContainer<AccountResponse>> account;
+    private final LiveData<ResponseContainer<AccountResponse>> accountDetails;
+    private final LiveData<ResponseContainer<RegisterResponse>> accountsRegister;
+    private final LiveData<ResponseContainer<LoginResponse>> accountsLogin;
+    private final LiveData<ResponseContainer<Object>> accountsLogout;
+    private final LiveData<ResponseContainer<Object>> accountsLogoutAll;
 
     public AccountsViewModel(@NonNull Application application) {
         super(application);
+        Log.d("ViewModel", "AccountsViewModel Init");
         accountsRepository = new AccountsRepository();
         account = accountsRepository.getAccount();
+        accountDetails = accountsRepository.getAccountDetails();
         accountsRegister = accountsRepository.getAccountsRegister();
         accountsLogin = accountsRepository.getAccountsLogin();
         accountsLogout = accountsRepository.getAccountsLogout();
@@ -34,6 +41,10 @@ public class AccountsViewModel extends AndroidViewModel {
 
     public void account() {
         accountsRepository.account();
+    }
+
+    public void accountDetails(String request) {
+        accountsRepository.accountDetails(request);
     }
 
     public void accountsRegister(Register request) {
@@ -54,23 +65,27 @@ public class AccountsViewModel extends AndroidViewModel {
 
     /* Get */
 
-    public LiveData<ResponseBody> getAccount() {
+    public LiveData<ResponseContainer<AccountResponse>> getAccount() {
         return account;
     }
 
-    public LiveData<ResponseBody> getAccountsRegister() {
+    public LiveData<ResponseContainer<AccountResponse>> getAccountDetails() {
+        return accountDetails;
+    }
+
+    public LiveData<ResponseContainer<RegisterResponse>> getAccountsRegister() {
         return accountsRegister;
     }
 
-    public LiveData<ResponseBody> getAccountsLogin() {
+    public LiveData<ResponseContainer<LoginResponse>> getAccountsLogin() {
         return accountsLogin;
     }
 
-    public LiveData<ResponseBody> getAccountsLogout() {
+    public LiveData<ResponseContainer<Object>> getAccountsLogout() {
         return accountsLogout;
     }
 
-    public LiveData<ResponseBody> getAccountsLogoutAll() {
+    public LiveData<ResponseContainer<Object>> getAccountsLogoutAll() {
         return accountsLogoutAll;
     }
 

@@ -2,6 +2,9 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="xyz.matirbank.app">
 
+    <uses-permission android:name="android.permission.READ_CONTACTS" />
+    <uses-permission android:name="android.permission.WRITE_CONTACTS" />
+
     <application
         android:name=".ThisApplication"
         android:allowBackup="true"
@@ -10,9 +13,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.MaterialComponents.DayNight.NoActionBar">
-        <activity android:name=".activities.views.accounts.PreLoginActivity"></activity>
-        <activity android:name=".activities.views.accounts.LoginActivity" />
-        <activity android:name=".activities.views.common.SplashActivity">
+        <activity android:name=".presentation.activities.TestActivity"></activity>
+        <activity android:name=".presentation.activities.accounts.RegisterActivity" />
+        <activity android:name=".presentation.activities.accounts.PreLoginActivity" />
+        <activity android:name=".presentation.activities.accounts.LoginActivity" />
+        <activity android:name=".presentation.activities.common.SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

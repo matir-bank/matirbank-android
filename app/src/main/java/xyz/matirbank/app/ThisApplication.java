@@ -2,10 +2,8 @@ package xyz.matirbank.app;
 
 import android.content.Context;
 import android.content.Intent;
-import android.util.Log;
 
-import xyz.matirbank.app.activities.views.accounts.PreLoginActivity;
-import xyz.matirbank.app.services.RetrofitService;
+import xyz.matirbank.app.presentation.activities.accounts.PreLoginActivity;
 import xyz.matirbank.app.ioc.DaggerModuleComponents;
 import xyz.matirbank.app.ioc.ModuleComponents;
 import xyz.matirbank.app.ioc.Modules;

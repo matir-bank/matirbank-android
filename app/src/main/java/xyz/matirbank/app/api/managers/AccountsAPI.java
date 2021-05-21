@@ -2,14 +2,16 @@ package xyz.matirbank.app.api.managers;
 
 import javax.inject.Inject;
 
-import okhttp3.ResponseBody;
 import retrofit2.Callback;
-import retrofit2.Response;
 import xyz.matirbank.app.ThisApplication;
-import xyz.matirbank.app.api.interfaces.IAccounts;
-import xyz.matirbank.app.api.interfaces.IAccountsAPI;
-import xyz.matirbank.app.entities.api.accounts.Login;
-import xyz.matirbank.app.entities.api.accounts.Register;
+import xyz.matirbank.app.api.interfaces.apis.IAccounts;
+import xyz.matirbank.app.api.interfaces.managers.IAccountsAPI;
+import xyz.matirbank.app.api.entities.accounts.requests.Login;
+import xyz.matirbank.app.api.entities.accounts.responses.AccountResponse;
+import xyz.matirbank.app.api.entities.accounts.responses.LoginResponse;
+import xyz.matirbank.app.api.entities.accounts.requests.Register;
+import xyz.matirbank.app.api.entities.accounts.responses.RegisterResponse;
+import xyz.matirbank.app.api.entities.base.ResponseContainer;
 import xyz.matirbank.app.services.interfaces.IRetrofitService;
 
 public class AccountsAPI implements IAccountsAPI {
@@ -25,27 +27,32 @@ public class AccountsAPI implements IAccountsAPI {
     }
 
     @Override
-    public void account(Callback<ResponseBody> callback) {
+    public void account(Callback<ResponseContainer<AccountResponse>> callback) {
         accounts.account().enqueue(callback);
     }
 
     @Override
-    public void accountsRegister(Register request, Callback<ResponseBody> callback) {
+    public void accountDetails(String request, Callback<ResponseContainer<AccountResponse>> callback) {
+        accounts.accountDetails(request).enqueue(callback);
+    }
+
+    @Override
+    public void accountsRegister(Register request, Callback<ResponseContainer<RegisterResponse>> callback) {
         accounts.accountsRegister(request).enqueue(callback);
     }
 
     @Override
-    public void accountsLogin(Login request, Callback<ResponseBody> callback) {
+    public void accountsLogin(Login request, Callback<ResponseContainer<LoginResponse>> callback) {
         accounts.accountsLogin(request).enqueue(callback);
     }
 
     @Override
-    public void accountsLogout(Callback<ResponseBody> callback) {
+    public void accountsLogout(Callback<ResponseContainer<Object>> callback) {
         accounts.accountsLogout().enqueue(callback);
     }
 
     @Override
-    public void accountsLogoutAll(Callback<ResponseBody> callback) {
+    public void accountsLogoutAll(Callback<ResponseContainer<Object>> callback) {
         accounts.accountsLogoutAll().enqueue(callback);
     }
 
