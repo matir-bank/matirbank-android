@@ -1,6 +1,7 @@
 package xyz.matirbank.app.activities.views.common;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.ViewModelProvider;
 
 import android.animation.ObjectAnimator;
 import android.os.Bundle;
@@ -10,11 +11,15 @@ import android.view.WindowManager;
 import javax.inject.Inject;
 
 import xyz.matirbank.app.ThisApplication;
+import xyz.matirbank.app.activities.viewmodels.SplashViewModel;
+import xyz.matirbank.app.databinding.ActivitySplashBinding;
 import xyz.matirbank.app.services.interfaces.IAccountServices;
+import xyz.matirbank.app.viewmodels.AccountsViewModel;
 
 public class SplashActivity extends AppCompatActivity {
 
-    xyz.matirbank.app.databinding.ActivitySplashBinding binding;
+    SplashViewModel splashViewModel;
+    public ActivitySplashBinding binding;
 
     @Inject
     IAccountServices _accountServices;
@@ -23,14 +28,22 @@ public class SplashActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        // Init Dagger
         ThisApplication.getInstance().getComponents().inject(this);
+
+        // Init ViewModel
+        splashViewModel = new SplashViewModel(this);
+
+        splashViewModel.getAccountsViewModel().account();
+        splashViewModel.getAccountsViewModel().accountsLogout();
+
 
         // Request Full Screen
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
         // Bind View
-        binding = xyz.matirbank.app.databinding.ActivitySplashBinding.inflate(getLayoutInflater());
+        binding = ActivitySplashBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
         // Animate Views

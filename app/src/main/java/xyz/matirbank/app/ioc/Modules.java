@@ -4,6 +4,8 @@ import javax.inject.Singleton;
 
 import dagger.Module;
 import dagger.Provides;
+import xyz.matirbank.app.api.interfaces.IAccountsAPI;
+import xyz.matirbank.app.api.managers.AccountsAPI;
 import xyz.matirbank.app.services.RetrofitService;
 import xyz.matirbank.app.services.SharedPreference;
 import xyz.matirbank.app.services.interfaces.IAccountServices;
@@ -30,6 +32,14 @@ public class Modules {
     @Provides
     public ISharedPreference provideSharedPreference() {
         return new SharedPreference();
+    }
+
+    /* API */
+
+    @Singleton
+    @Provides
+    public IAccountsAPI provideAccountsAPI() {
+        return new AccountsAPI();
     }
 
 }
