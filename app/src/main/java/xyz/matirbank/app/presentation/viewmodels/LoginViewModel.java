@@ -27,6 +27,7 @@ public class LoginViewModel {
         });
 
         accountsViewModel.getAccountsLogin().observe(activity, response -> {
+            activity.hideLoading();
             if(response != null) {
                 if(response.getStatus() == 200) {
                     if(response.getData() != null){

@@ -4,9 +4,9 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 
 import xyz.matirbank.app.ThisApplication;
-import xyz.matirbank.app.api.entities.accounts.requests.Login;
 import xyz.matirbank.app.api.entities.accounts.requests.Register;
 import xyz.matirbank.app.databinding.ActivityRegisterBinding;
 import xyz.matirbank.app.presentation.viewmodels.RegisterViewModel;
@@ -37,25 +37,42 @@ public class RegisterActivity extends AppCompatActivity {
     void initViews() {
 
         binding.btnRegister.setOnClickListener(v -> {
-            String phone = binding.editPhone.getText().toString();
-            String password = binding.editPassword.getText().toString();
-            String name = binding.editName.getText().toString();
-            String type = binding.editType.getAdapter().getItem(binding.editType.getListSelection()).toString();
-
-            Register register = new Register();
-            register.setName(name);
-            register.setPhone(phone);
-            register.setPassword(password);
-            register.setType(type);
-
-            registerViewModel.getAccountsViewModel().accountsRegister(register);
+            requestRegister();
         });
 
         binding.txtLogin.setOnClickListener(v -> {
-            Intent intent = new Intent(this, LoginActivity.class);
-            intent.setFlags(FLAG_ACTIVITY_CLEAR_TOP|FLAG_ACTIVITY_SINGLE_TOP);
-            startActivity(intent);
-            overridePendingTransition(0,0);
+            gotoLogin();
         });
+
+    }
+
+    void requestRegister() {
+        String phone = binding.editPhone.getText().toString();
+        String password = binding.editPassword.getText().toString();
+        String name = binding.editName.getText().toString();
+        String type = binding.editType.getAdapter().getItem(binding.editType.getListSelection()).toString();
+
+        Register register = new Register();
+        register.setName(name);
+        register.setPhone(phone);
+        register.setPassword(password);
+        register.setType(type);
+
+        registerViewModel.getAccountsViewModel().accountsRegister(register);
+    }
+
+    void gotoLogin() {
+        Intent intent = new Intent(this, LoginActivity.class);
+        intent.setFlags(FLAG_ACTIVITY_CLEAR_TOP|FLAG_ACTIVITY_SINGLE_TOP);
+        startActivity(intent);
+        overridePendingTransition(0,0);
+    }
+
+    public void showLoading() {
+        binding.layoutLoading.setVisibility(View.VISIBLE);
+    }
+
+    public void hideLoading() {
+        binding.layoutLoading.setVisibility(View.GONE);
     }
 }

@@ -37,6 +37,5 @@ public class TestActivity extends AppCompatActivity {
         CardAdapter cardAdapter = new CardAdapter(this, cardResponseList);
         binding.recyclerTest.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
         binding.recyclerTest.setAdapter(cardAdapter);
-
     }
 }

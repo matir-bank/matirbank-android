@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.KeyEvent;
+import android.view.View;
 
 import javax.inject.Inject;
 
@@ -39,14 +40,7 @@ public class LoginActivity extends AppCompatActivity {
 
         // Login Request
         binding.btnLogin.setOnClickListener(v -> {
-            String phone = binding.editPhone.getText().toString();
-            String password = binding.editPassword.getText().toString();
-
-            Login login = new Login();
-            login.setPhone(phone);
-            login.setPassword(password);
-
-            loginViewModel.getAccountsViewModel().accountsLogin(login);
+            requestLogin();
         });
 
         // Detect Enter Key
@@ -59,10 +53,33 @@ public class LoginActivity extends AppCompatActivity {
         });
 
         binding.txtRegister.setOnClickListener(v -> {
-            Intent intent = new Intent(this, RegisterActivity.class);
-            startActivity(intent);
-            overridePendingTransition(0,0);
+            gotoRegister();
         });
+    }
 
+    void requestLogin() {
+        String phone = binding.editPhone.getText().toString();
+        String password = binding.editPassword.getText().toString();
+
+        Login login = new Login();
+        login.setPhone(phone);
+        login.setPassword(password);
+
+        loginViewModel.getAccountsViewModel().accountsLogin(login);
+        showLoading();
+    }
+
+    void gotoRegister() {
+        Intent intent = new Intent(this, RegisterActivity.class);
+        startActivity(intent);
+        overridePendingTransition(0,0);
+    }
+
+    public void showLoading() {
+        binding.layoutLoading.setVisibility(View.VISIBLE);
+    }
+
+    public void hideLoading() {
+        binding.layoutLoading.setVisibility(View.GONE);
     }
 }
