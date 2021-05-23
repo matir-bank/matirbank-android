@@ -18,7 +18,6 @@ public class AccountsAPI implements IAccountsAPI {
 
     @Inject
     IRetrofitService _retrofitService;
-
     IAccounts accounts;
 
     public AccountsAPI() {

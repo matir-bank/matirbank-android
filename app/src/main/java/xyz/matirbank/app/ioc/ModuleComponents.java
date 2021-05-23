@@ -3,11 +3,13 @@ package xyz.matirbank.app.ioc;
 import javax.inject.Singleton;
 
 import dagger.Component;
+import xyz.matirbank.app.api.managers.CardsAPI;
 import xyz.matirbank.app.presentation.activities.accounts.RegisterActivity;
 import xyz.matirbank.app.presentation.activities.common.SplashActivity;
 import xyz.matirbank.app.presentation.activities.accounts.LoginActivity;
 import xyz.matirbank.app.api.managers.AccountsAPI;
 import xyz.matirbank.app.repositories.AccountsRepository;
+import xyz.matirbank.app.repositories.CardsRepository;
 import xyz.matirbank.app.services.RetrofitService;
 import xyz.matirbank.app.services.SharedPreference;
 
@@ -21,9 +23,11 @@ public interface ModuleComponents {
 
     // API Managers
     void inject(AccountsAPI accountsAPI);
+    void inject(CardsAPI cardsAPI);
 
     // Repositories
     void inject(AccountsRepository accountsRepository);
+    void inject(CardsRepository cardsRepository);
 
     // Activities
     void inject(SplashActivity splashActivity);

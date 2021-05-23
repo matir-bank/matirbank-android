@@ -64,6 +64,9 @@ dependencies {
     implementation 'com.github.bumptech.glide:glide:3.7.0'
     implementation 'com.github.CanHub:Android-Image-Cropper:3.0.1';
 
+    // Libraries for Navigation
+    implementation 'com.gauravk.bubblenavigation:bubblenavigation:1.0.7'
+
     // Libraries for Animation / Loading / Progressbar
     implementation 'com.github.ybq:Android-SpinKit:1.4.0'
 

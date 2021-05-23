@@ -1,8 +1,10 @@
 package xyz.matirbank.app.presentation.viewmodels;
 
+import android.content.Intent;
 import android.widget.Toast;
 import androidx.lifecycle.ViewModelProvider;
 import xyz.matirbank.app.ThisApplication;
+import xyz.matirbank.app.presentation.activities.DashboardActivity;
 import xyz.matirbank.app.presentation.activities.accounts.LoginActivity;
 import xyz.matirbank.app.utils.CommonConstants;
 import xyz.matirbank.app.viewmodels.AccountsViewModel;
@@ -33,6 +35,7 @@ public class LoginViewModel {
                     if(response.getData() != null){
                         CommonConstants.AUTH_TOKEN = response.getData().getToken();
                         Toast.makeText(ThisApplication.getContext(), "ACCOUNT: " + response.getData().getToken(), Toast.LENGTH_SHORT).show();
+                        activity.startActivity(new Intent(activity, DashboardActivity.class));
                     }
                 }
                 if(response.getStatus() == 400) {

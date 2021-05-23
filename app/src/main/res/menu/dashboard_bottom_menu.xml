@@ -1,0 +1,23 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+<!--    <item-->
+<!--        android:id="@+id/home"-->
+<!--        android:icon="@drawable/ic_outline_home_24"-->
+<!--        android:title="Home"-->
+<!--        app:cnb_iconColor="@color/primaryColor"/>-->
+<!--    <item-->
+<!--        android:id="@+id/activity"-->
+<!--        android:icon="@drawable/ic_outline_swap_horizontal_circle_24"-->
+<!--        android:title="Transactions"-->
+<!--        app:cnb_iconColor="@color/primaryColor"/>-->
+<!--    <item-->
+<!--        android:id="@+id/favorites"-->
+<!--        android:icon="@drawable/ic_outline_home_24"-->
+<!--        android:title="Favorites"-->
+<!--        app:cnb_iconColor="@color/primaryColor" />-->
+<!--    <item-->
+<!--        android:id="@+id/settings"-->
+<!--        android:icon="@drawable/ic_outline_home_24"-->
+<!--        android:title="Settings"-->
+<!--        app:cnb_iconColor="@color/primaryColor" />-->
+</menu>

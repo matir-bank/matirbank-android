@@ -17,24 +17,16 @@ import xyz.matirbank.app.repositories.AccountsRepository;
 
 public class AccountsViewModel extends AndroidViewModel {
 
-    private final AccountsRepository accountsRepository;
-    private final LiveData<ResponseContainer<AccountResponse>> account;
-    private final LiveData<ResponseContainer<AccountResponse>> accountDetails;
-    private final LiveData<ResponseContainer<RegisterResponse>> accountsRegister;
-    private final LiveData<ResponseContainer<LoginResponse>> accountsLogin;
-    private final LiveData<ResponseContainer<Object>> accountsLogout;
-    private final LiveData<ResponseContainer<Object>> accountsLogoutAll;
+    private final AccountsRepository accountsRepository = new AccountsRepository();
+    private final LiveData<ResponseContainer<AccountResponse>> account = accountsRepository.getAccount();
+    private final LiveData<ResponseContainer<AccountResponse>> accountDetails = accountsRepository.getAccountDetails();
+    private final LiveData<ResponseContainer<RegisterResponse>> accountsRegister = accountsRepository.getAccountsRegister();
+    private final LiveData<ResponseContainer<LoginResponse>> accountsLogin = accountsRepository.getAccountsLogin();
+    private final LiveData<ResponseContainer<Object>> accountsLogout = accountsRepository.getAccountsLogout();
+    private final LiveData<ResponseContainer<Object>> accountsLogoutAll = accountsRepository.getAccountsLogoutAll();
 
     public AccountsViewModel(@NonNull Application application) {
         super(application);
-        Log.d("ViewModel", "AccountsViewModel Init");
-        accountsRepository = new AccountsRepository();
-        account = accountsRepository.getAccount();
-        accountDetails = accountsRepository.getAccountDetails();
-        accountsRegister = accountsRepository.getAccountsRegister();
-        accountsLogin = accountsRepository.getAccountsLogin();
-        accountsLogout = accountsRepository.getAccountsLogout();
-        accountsLogoutAll = accountsRepository.getAccountsLogoutAll();
     }
 
     /* Request */
