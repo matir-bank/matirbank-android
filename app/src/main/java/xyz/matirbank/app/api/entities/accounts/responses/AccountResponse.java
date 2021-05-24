@@ -36,7 +36,7 @@ public class AccountResponse {
     private List<CardResponse> cards = null;
     @SerializedName("photo")
     @Expose
-    private String photo;
+    private PhotoResponse photo;
 
     public Integer getId() {
         return id;
@@ -110,11 +110,11 @@ public class AccountResponse {
         this.cards = cards;
     }
 
-    public String getPhoto() {
+    public PhotoResponse getPhoto() {
         return photo;
     }
 
-    public void setPhoto(String photo) {
+    public void setPhoto(PhotoResponse photo) {
         this.photo = photo;
     }
 

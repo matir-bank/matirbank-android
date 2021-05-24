@@ -1,4 +1,4 @@
-package xyz.matirbank.app.presentation.activities;
+package xyz.matirbank.app.presentation.activities.common;
 
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
@@ -13,13 +13,14 @@ public class DashboardActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         binding = ActivityDashboardBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+
         dashboardViewModel = new DashboardViewModel(this);
         initViews();
 
         dashboardViewModel.getAccountsViewModel().account();
-        dashboardViewModel.getCardsViewModel().cards();
     }
 
     void initViews() {

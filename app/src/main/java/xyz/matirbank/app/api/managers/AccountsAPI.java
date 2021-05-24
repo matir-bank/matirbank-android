@@ -23,10 +23,11 @@ public class AccountsAPI implements IAccountsAPI {
 
     @Inject
     IRetrofitService _retrofitService;
-    IAccounts accounts = _retrofitService.getClient().create(IAccounts.class);
+    private final IAccounts accounts;
 
     public AccountsAPI() {
         ThisApplication.getInstance().getComponents().inject(this);
+        accounts = _retrofitService.getClient().create(IAccounts.class);
     }
 
     @Override

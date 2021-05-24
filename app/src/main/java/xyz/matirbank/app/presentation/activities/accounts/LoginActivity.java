@@ -20,9 +20,6 @@ public class LoginActivity extends AppCompatActivity {
     public ActivityLoginBinding binding;
     LoginViewModel loginViewModel;
 
-    @Inject
-    ISharedPreference _sharedPreference;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

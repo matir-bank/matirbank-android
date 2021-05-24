@@ -14,7 +14,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MaterialComponents.DayNight.NoActionBar">
 
-        <activity android:name=".presentation.activities.DashboardActivity" android:screenOrientation="portrait" />
+        <activity android:name=".presentation.activities.common.DashboardActivity" android:screenOrientation="portrait" />
         <activity android:name=".presentation.activities.TestActivity" android:screenOrientation="portrait" />
         <activity android:name=".presentation.activities.accounts.RegisterActivity" android:screenOrientation="portrait" />
         <activity android:name=".presentation.activities.accounts.PreLoginActivity" android:screenOrientation="portrait" />

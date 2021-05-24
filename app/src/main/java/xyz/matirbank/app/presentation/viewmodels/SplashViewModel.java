@@ -4,38 +4,42 @@ import android.widget.Toast;
 
 import androidx.lifecycle.ViewModelProvider;
 
+import javax.inject.Inject;
+
 import xyz.matirbank.app.ThisApplication;
 import xyz.matirbank.app.presentation.activities.common.SplashActivity;
+import xyz.matirbank.app.services.interfaces.ISharedPreference;
 import xyz.matirbank.app.utils.CommonConstants;
 import xyz.matirbank.app.viewmodels.AccountsViewModel;
 
 public class SplashViewModel {
 
-    private AccountsViewModel accountsViewModel;
+    @Inject
+    ISharedPreference _sharedPreference;
+
+    private final AccountsViewModel accountsViewModel;
 
     public SplashViewModel(SplashActivity activity) {
+        // Init Dagger
+        ThisApplication.getInstance().getComponents().inject(this);
+
+        // Init ViewModel
         accountsViewModel = new ViewModelProvider(activity).get(AccountsViewModel.class);
+
+        // Set Auth Token
+        CommonConstants.AUTH_TOKEN = _sharedPreference.loadPreference("_AUTH_TOKEN", "");
+
+        // Init Observer
         observers(activity);
     }
 
     private void observers(SplashActivity activity) {
         accountsViewModel.getAccount().observe(activity, response -> {
             if(response != null){
-                Toast.makeText(ThisApplication.getContext(), "ACCOUNT: " + response.toString(), Toast.LENGTH_SHORT).show();
-            }else{
-                Toast.makeText(ThisApplication.getContext(), "ACCOUNT: NULL", Toast.LENGTH_SHORT).show();
-            }
-        });
-        accountsViewModel.getAccountsLogin().observe(activity, response -> {
-            if(response != null) {
-                if(response.getStatus() == 200) {
-                    if(response.getData() != null){
-                        CommonConstants.AUTH_TOKEN = response.getData().getToken();
-                        Toast.makeText(ThisApplication.getContext(), "ACCOUNT: " + response.getData().getToken(), Toast.LENGTH_SHORT).show();
+                if(response.getData() != null) {
+                    if(response.getData().getId() != null) {
+                        activity.isLoggedIn = true;
                     }
-                }
-                if(response.getStatus() == 400) {
-                    Toast.makeText(ThisApplication.getContext(), "Login Failed", Toast.LENGTH_SHORT).show();
                 }
             }
         });

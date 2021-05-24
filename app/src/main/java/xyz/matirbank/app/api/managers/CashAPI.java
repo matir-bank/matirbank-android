@@ -18,10 +18,11 @@ public class CashAPI implements ICashAPI {
 
     @Inject
     IRetrofitService _retrofitService;
-    ICash cash  = _retrofitService.getClient().create(ICash.class);
+    private final ICash cash;
 
     public CashAPI() {
         ThisApplication.getInstance().getComponents().inject(this);
+        cash  = _retrofitService.getClient().create(ICash.class);
     }
 
     @Override

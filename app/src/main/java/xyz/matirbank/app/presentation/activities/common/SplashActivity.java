@@ -8,11 +8,15 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 
+import javax.inject.Inject;
+
 import xyz.matirbank.app.ThisApplication;
 import xyz.matirbank.app.presentation.viewmodels.SplashViewModel;
 import xyz.matirbank.app.presentation.activities.accounts.LoginActivity;
 import xyz.matirbank.app.databinding.ActivitySplashBinding;
 import xyz.matirbank.app.api.entities.accounts.requests.LoginRequest;
+import xyz.matirbank.app.services.interfaces.ISharedPreference;
+import xyz.matirbank.app.utils.CommonConstants;
 
 import static android.content.Intent.FLAG_ACTIVITY_CLEAR_TOP;
 import static android.content.Intent.FLAG_ACTIVITY_SINGLE_TOP;
@@ -21,6 +25,7 @@ public class SplashActivity extends AppCompatActivity {
 
     SplashViewModel splashViewModel;
     public ActivitySplashBinding binding;
+    public boolean isLoggedIn = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,20 +34,15 @@ public class SplashActivity extends AppCompatActivity {
         // Init Dagger
         ThisApplication.getInstance().getComponents().inject(this);
 
-        // Init ViewModel
-        splashViewModel = new SplashViewModel(this);
-
-        LoginRequest loginRequest = new LoginRequest();
-        loginRequest.setPhone("adminx");
-        loginRequest.setPassword("adminphone");
-        splashViewModel.getAccountsViewModel().accountsLogin(loginRequest);
-        splashViewModel.getAccountsViewModel().account();
-        splashViewModel.getAccountsViewModel().accountDetails("admin");
-        splashViewModel.getAccountsViewModel().accountsLogout();
-
         // Bind View
         binding = ActivitySplashBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+
+        // Init ViewModel
+        splashViewModel = new SplashViewModel(this);
+
+        // Try Loading Profile
+        splashViewModel.getAccountsViewModel().account();
 
         // Animate Views
         animateViews();
@@ -51,14 +51,18 @@ public class SplashActivity extends AppCompatActivity {
         try {
             new Handler(Looper.getMainLooper()).postDelayed(() -> {
                 try {
-                    Intent intent = new Intent(SplashActivity.this, LoginActivity.class);
-                    //Intent intent = new Intent(SplashActivity.this, TestActivity.class);
+                    Intent intent;
+                    if(isLoggedIn && !CommonConstants.AUTH_TOKEN.equals("")){
+                        intent = new Intent(SplashActivity.this, DashboardActivity.class);
+                    }else{
+                        intent = new Intent(SplashActivity.this, LoginActivity.class);
+                    }
                     intent.setFlags(FLAG_ACTIVITY_CLEAR_TOP|FLAG_ACTIVITY_SINGLE_TOP);
                     startActivity(intent);
                 }catch (Exception e){
                     e.printStackTrace();
                 }
-            }, 3000);
+            }, 4000);
         }catch (Exception e){
             e.printStackTrace();
         }

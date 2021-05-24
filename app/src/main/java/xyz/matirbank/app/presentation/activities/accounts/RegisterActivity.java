@@ -47,6 +47,7 @@ public class RegisterActivity extends AppCompatActivity {
     }
 
     void requestRegister() {
+
         String phone = binding.editPhone.getText().toString();
         String password = binding.editPassword.getText().toString();
         String name = binding.editName.getText().toString();
@@ -59,6 +60,8 @@ public class RegisterActivity extends AppCompatActivity {
         registerRequest.setType(type);
 
         registerViewModel.getAccountsViewModel().accountsRegister(registerRequest);
+        showLoading();
+
     }
 
     void gotoLogin() {

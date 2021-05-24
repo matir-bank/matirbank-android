@@ -9,6 +9,10 @@ import xyz.matirbank.app.presentation.activities.accounts.RegisterActivity;
 import xyz.matirbank.app.presentation.activities.common.SplashActivity;
 import xyz.matirbank.app.presentation.activities.accounts.LoginActivity;
 import xyz.matirbank.app.api.managers.AccountsAPI;
+import xyz.matirbank.app.presentation.viewmodels.DashboardViewModel;
+import xyz.matirbank.app.presentation.viewmodels.LoginViewModel;
+import xyz.matirbank.app.presentation.viewmodels.RegisterViewModel;
+import xyz.matirbank.app.presentation.viewmodels.SplashViewModel;
 import xyz.matirbank.app.repositories.AccountsRepository;
 import xyz.matirbank.app.repositories.CardsRepository;
 import xyz.matirbank.app.repositories.CashRepository;
@@ -37,5 +41,11 @@ public interface ModuleComponents {
     void inject(SplashActivity splashActivity);
     void inject(LoginActivity loginActivity);
     void inject(RegisterActivity registerActivity);
+
+    // Activity ViewModels
+    void inject(SplashViewModel splashViewModel);
+    void inject(RegisterViewModel registerViewModel);
+    void inject(LoginViewModel loginViewModel);
+    void inject(DashboardViewModel dashboardViewModel);
 
 }
