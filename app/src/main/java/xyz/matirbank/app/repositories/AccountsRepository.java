@@ -5,12 +5,17 @@ import android.util.Log;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
+import java.util.List;
+
 import javax.inject.Inject;
 
+import okhttp3.MultipartBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import xyz.matirbank.app.ThisApplication;
+import xyz.matirbank.app.api.entities.accounts.responses.IdCardResponse;
+import xyz.matirbank.app.api.entities.accounts.responses.PhotoResponse;
 import xyz.matirbank.app.api.interfaces.managers.IAccountsAPI;
 import xyz.matirbank.app.api.entities.accounts.requests.LoginRequest;
 import xyz.matirbank.app.api.entities.accounts.responses.AccountResponse;
@@ -30,6 +35,11 @@ public class AccountsRepository {
     private final MutableLiveData<ResponseContainer<LoginResponse>> accountsLogin = new MutableLiveData<>();
     private final MutableLiveData<ResponseContainer<Object>> accountsLogout = new MutableLiveData<>();
     private final MutableLiveData<ResponseContainer<Object>> accountsLogoutAll = new MutableLiveData<>();
+    private final MutableLiveData<ResponseContainer<PhotoResponse>> photo = new MutableLiveData<>();
+    private final MutableLiveData<ResponseContainer<PhotoResponse>> addPhoto = new MutableLiveData<>();
+    private final MutableLiveData<ResponseContainer<List<IdCardResponse>>> idCardList = new MutableLiveData<>();
+    private final MutableLiveData<ResponseContainer<IdCardResponse>> addIdCard = new MutableLiveData<>();
+
 
     public AccountsRepository() {
         Log.d("Repository", "AccountsRepository Init");
@@ -122,6 +132,62 @@ public class AccountsRepository {
         });
     }
 
+    public void photo() {
+        accountsAPI.photo(new Callback<ResponseContainer<PhotoResponse>>() {
+            @Override
+            public void onResponse(Call<ResponseContainer<PhotoResponse>> call, Response<ResponseContainer<PhotoResponse>> response) {
+                photo.postValue(response.body());
+            }
+
+            @Override
+            public void onFailure(Call<ResponseContainer<PhotoResponse>> call, Throwable t) {
+                photo.postValue(null);
+            }
+        });
+    }
+
+    public void addPhoto(MultipartBody.Part file) {
+        accountsAPI.addPhoto(file, new Callback<ResponseContainer<PhotoResponse>>() {
+            @Override
+            public void onResponse(Call<ResponseContainer<PhotoResponse>> call, Response<ResponseContainer<PhotoResponse>> response) {
+                addPhoto.postValue(response.body());
+            }
+
+            @Override
+            public void onFailure(Call<ResponseContainer<PhotoResponse>> call, Throwable t) {
+                addPhoto.postValue(null);
+            }
+        });
+    }
+
+    public void idCardList() {
+        accountsAPI.idCardList(new Callback<ResponseContainer<List<IdCardResponse>>>() {
+            @Override
+            public void onResponse(Call<ResponseContainer<List<IdCardResponse>>> call, Response<ResponseContainer<List<IdCardResponse>>> response) {
+                idCardList.postValue(response.body());
+            }
+
+            @Override
+            public void onFailure(Call<ResponseContainer<List<IdCardResponse>>> call, Throwable t) {
+                idCardList.postValue(null);
+            }
+        });
+    }
+
+    public void addIdCard(MultipartBody.Part type, MultipartBody.Part file) {
+        accountsAPI.addIdCard(type, file, new Callback<ResponseContainer<IdCardResponse>>() {
+            @Override
+            public void onResponse(Call<ResponseContainer<IdCardResponse>> call, Response<ResponseContainer<IdCardResponse>> response) {
+                addIdCard.postValue(response.body());
+            }
+
+            @Override
+            public void onFailure(Call<ResponseContainer<IdCardResponse>> call, Throwable t) {
+                addIdCard.postValue(null);
+            }
+        });
+    }
+
     /* Get */
 
     public LiveData<ResponseContainer<AccountResponse>> getAccount() {
@@ -148,4 +214,19 @@ public class AccountsRepository {
         return accountsLogoutAll;
     }
 
+    public MutableLiveData<ResponseContainer<PhotoResponse>> getPhoto() {
+        return photo;
+    }
+
+    public MutableLiveData<ResponseContainer<PhotoResponse>> getAddPhoto() {
+        return addPhoto;
+    }
+
+    public MutableLiveData<ResponseContainer<List<IdCardResponse>>> getIdCardList() {
+        return idCardList;
+    }
+
+    public MutableLiveData<ResponseContainer<IdCardResponse>> getAddIdCard() {
+        return addIdCard;
+    }
 }

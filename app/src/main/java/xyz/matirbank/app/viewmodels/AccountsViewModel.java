@@ -5,11 +5,20 @@ import android.app.Application;
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MutableLiveData;
 
+import java.util.List;
+
+import okhttp3.MultipartBody;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 import xyz.matirbank.app.api.entities.accounts.requests.LoginRequest;
 import xyz.matirbank.app.api.entities.accounts.responses.AccountResponse;
+import xyz.matirbank.app.api.entities.accounts.responses.IdCardResponse;
 import xyz.matirbank.app.api.entities.accounts.responses.LoginResponse;
 import xyz.matirbank.app.api.entities.accounts.requests.RegisterRequest;
+import xyz.matirbank.app.api.entities.accounts.responses.PhotoResponse;
 import xyz.matirbank.app.api.entities.accounts.responses.RegisterResponse;
 import xyz.matirbank.app.api.entities.base.ResponseContainer;
 import xyz.matirbank.app.repositories.AccountsRepository;
@@ -23,6 +32,10 @@ public class AccountsViewModel extends AndroidViewModel {
     private final LiveData<ResponseContainer<LoginResponse>> accountsLogin = accountsRepository.getAccountsLogin();
     private final LiveData<ResponseContainer<Object>> accountsLogout = accountsRepository.getAccountsLogout();
     private final LiveData<ResponseContainer<Object>> accountsLogoutAll = accountsRepository.getAccountsLogoutAll();
+    private final LiveData<ResponseContainer<PhotoResponse>> photo = new MutableLiveData<>();
+    private final LiveData<ResponseContainer<PhotoResponse>> addPhoto = new MutableLiveData<>();
+    private final LiveData<ResponseContainer<List<IdCardResponse>>> idCardList = new MutableLiveData<>();
+    private final LiveData<ResponseContainer<IdCardResponse>> addIdCard = new MutableLiveData<>();
 
     public AccountsViewModel(@NonNull Application application) {
         super(application);
@@ -54,6 +67,22 @@ public class AccountsViewModel extends AndroidViewModel {
         accountsRepository.accountsLogoutAll();
     }
 
+    public void photo() {
+        accountsRepository.photo();
+    }
+
+    public void addPhoto(MultipartBody.Part file) {
+        accountsRepository.addPhoto(file);
+    }
+
+    public void idCardList() {
+        accountsRepository.idCardList();
+    }
+
+    public void addIdCard(MultipartBody.Part type, MultipartBody.Part file) {
+        accountsRepository.addIdCard(type, file);
+    }
+
     /* Get */
 
     public LiveData<ResponseContainer<AccountResponse>> getAccount() {
@@ -80,5 +109,19 @@ public class AccountsViewModel extends AndroidViewModel {
         return accountsLogoutAll;
     }
 
+    public LiveData<ResponseContainer<PhotoResponse>> getPhoto() {
+        return photo;
+    }
 
+    public LiveData<ResponseContainer<PhotoResponse>> getAddPhoto() {
+        return addPhoto;
+    }
+
+    public LiveData<ResponseContainer<List<IdCardResponse>>> getIdCardList() {
+        return idCardList;
+    }
+
+    public LiveData<ResponseContainer<IdCardResponse>> getAddIdCard() {
+        return addIdCard;
+    }
 }

@@ -6,6 +6,17 @@
     android:layout_height="match_parent"
     tools:context=".presentation.activities.common.DashboardActivity">
 
+    <ImageView
+        android:id="@+id/imgIcon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="108dp"
+        android:src="@drawable/icon"
+        app:layout_constraintBottom_toTopOf="@+id/top_navigation_constraint"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent" />
+
     <TextView
         android:id="@+id/txtName"
         android:layout_width="wrap_content"
