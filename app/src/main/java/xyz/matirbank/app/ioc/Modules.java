@@ -6,8 +6,10 @@ import dagger.Module;
 import dagger.Provides;
 import xyz.matirbank.app.api.interfaces.managers.IAccountsAPI;
 import xyz.matirbank.app.api.interfaces.managers.ICardsAPI;
+import xyz.matirbank.app.api.interfaces.managers.ICashAPI;
 import xyz.matirbank.app.api.managers.AccountsAPI;
 import xyz.matirbank.app.api.managers.CardsAPI;
+import xyz.matirbank.app.api.managers.CashAPI;
 import xyz.matirbank.app.services.RetrofitService;
 import xyz.matirbank.app.services.SharedPreference;
 import xyz.matirbank.app.services.interfaces.IRetrofitService;
@@ -15,6 +17,8 @@ import xyz.matirbank.app.services.interfaces.ISharedPreference;
 
 @Module
 public class Modules {
+
+    /* Services */
 
     @Singleton
     @Provides
@@ -40,6 +44,12 @@ public class Modules {
     @Provides
     public ICardsAPI provideCardsAPI() {
         return new CardsAPI();
+    }
+
+    @Singleton
+    @Provides
+    public ICashAPI provideCashAPI() {
+        return new CashAPI();
     }
 
 }

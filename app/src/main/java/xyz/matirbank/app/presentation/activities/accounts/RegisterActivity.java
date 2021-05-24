@@ -7,7 +7,7 @@ import android.os.Bundle;
 import android.view.View;
 
 import xyz.matirbank.app.ThisApplication;
-import xyz.matirbank.app.api.entities.accounts.requests.Register;
+import xyz.matirbank.app.api.entities.accounts.requests.RegisterRequest;
 import xyz.matirbank.app.databinding.ActivityRegisterBinding;
 import xyz.matirbank.app.presentation.viewmodels.RegisterViewModel;
 
@@ -52,13 +52,13 @@ public class RegisterActivity extends AppCompatActivity {
         String name = binding.editName.getText().toString();
         String type = binding.editType.getAdapter().getItem(binding.editType.getListSelection()).toString();
 
-        Register register = new Register();
-        register.setName(name);
-        register.setPhone(phone);
-        register.setPassword(password);
-        register.setType(type);
+        RegisterRequest registerRequest = new RegisterRequest();
+        registerRequest.setName(name);
+        registerRequest.setPhone(phone);
+        registerRequest.setPassword(password);
+        registerRequest.setType(type);
 
-        registerViewModel.getAccountsViewModel().accountsRegister(register);
+        registerViewModel.getAccountsViewModel().accountsRegister(registerRequest);
     }
 
     void gotoLogin() {

@@ -1,16 +1,15 @@
 package xyz.matirbank.app.viewmodels;
 
 import android.app.Application;
-import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 
-import xyz.matirbank.app.api.entities.accounts.requests.Login;
+import xyz.matirbank.app.api.entities.accounts.requests.LoginRequest;
 import xyz.matirbank.app.api.entities.accounts.responses.AccountResponse;
 import xyz.matirbank.app.api.entities.accounts.responses.LoginResponse;
-import xyz.matirbank.app.api.entities.accounts.requests.Register;
+import xyz.matirbank.app.api.entities.accounts.requests.RegisterRequest;
 import xyz.matirbank.app.api.entities.accounts.responses.RegisterResponse;
 import xyz.matirbank.app.api.entities.base.ResponseContainer;
 import xyz.matirbank.app.repositories.AccountsRepository;
@@ -39,11 +38,11 @@ public class AccountsViewModel extends AndroidViewModel {
         accountsRepository.accountDetails(request);
     }
 
-    public void accountsRegister(Register request) {
+    public void accountsRegister(RegisterRequest request) {
         accountsRepository.accountsRegister(request);
     }
 
-    public void accountsLogin(Login request) {
+    public void accountsLogin(LoginRequest request) {
         accountsRepository.accountsLogin(request);
     }
 

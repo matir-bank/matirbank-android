@@ -16,11 +16,10 @@ public class CardsAPI implements ICardsAPI {
 
     @Inject
     IRetrofitService _retrofitService;
-    ICards cards;
+    ICards cards = _retrofitService.getClient().create(ICards.class);
 
     public CardsAPI() {
         ThisApplication.getInstance().getComponents().inject(this);
-        cards = _retrofitService.getClient().create(ICards.class);
     }
 
     @Override

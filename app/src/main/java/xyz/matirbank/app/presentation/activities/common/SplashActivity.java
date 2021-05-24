@@ -8,14 +8,11 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 
-import javax.inject.Inject;
-
 import xyz.matirbank.app.ThisApplication;
-import xyz.matirbank.app.presentation.activities.TestActivity;
 import xyz.matirbank.app.presentation.viewmodels.SplashViewModel;
 import xyz.matirbank.app.presentation.activities.accounts.LoginActivity;
 import xyz.matirbank.app.databinding.ActivitySplashBinding;
-import xyz.matirbank.app.api.entities.accounts.requests.Login;
+import xyz.matirbank.app.api.entities.accounts.requests.LoginRequest;
 
 import static android.content.Intent.FLAG_ACTIVITY_CLEAR_TOP;
 import static android.content.Intent.FLAG_ACTIVITY_SINGLE_TOP;
@@ -35,10 +32,10 @@ public class SplashActivity extends AppCompatActivity {
         // Init ViewModel
         splashViewModel = new SplashViewModel(this);
 
-        Login login = new Login();
-        login.setPhone("adminx");
-        login.setPassword("adminphone");
-        splashViewModel.getAccountsViewModel().accountsLogin(login);
+        LoginRequest loginRequest = new LoginRequest();
+        loginRequest.setPhone("adminx");
+        loginRequest.setPassword("adminphone");
+        splashViewModel.getAccountsViewModel().accountsLogin(loginRequest);
         splashViewModel.getAccountsViewModel().account();
         splashViewModel.getAccountsViewModel().accountDetails("admin");
         splashViewModel.getAccountsViewModel().accountsLogout();

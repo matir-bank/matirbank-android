@@ -12,10 +12,10 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import xyz.matirbank.app.ThisApplication;
 import xyz.matirbank.app.api.interfaces.managers.IAccountsAPI;
-import xyz.matirbank.app.api.entities.accounts.requests.Login;
+import xyz.matirbank.app.api.entities.accounts.requests.LoginRequest;
 import xyz.matirbank.app.api.entities.accounts.responses.AccountResponse;
 import xyz.matirbank.app.api.entities.accounts.responses.LoginResponse;
-import xyz.matirbank.app.api.entities.accounts.requests.Register;
+import xyz.matirbank.app.api.entities.accounts.requests.RegisterRequest;
 import xyz.matirbank.app.api.entities.accounts.responses.RegisterResponse;
 import xyz.matirbank.app.api.entities.base.ResponseContainer;
 
@@ -66,7 +66,7 @@ public class AccountsRepository {
         });
     }
 
-    public void accountsRegister(Register request) {
+    public void accountsRegister(RegisterRequest request) {
         accountsAPI.accountsRegister(request, new Callback<ResponseContainer<RegisterResponse>>() {
             @Override
             public void onResponse(Call<ResponseContainer<RegisterResponse>> call, Response<ResponseContainer<RegisterResponse>> response) {
@@ -80,7 +80,7 @@ public class AccountsRepository {
         });
     }
 
-    public void accountsLogin(Login request) {
+    public void accountsLogin(LoginRequest request) {
         accountsAPI.accountsLogin(request, new Callback<ResponseContainer<LoginResponse>>() {
             @Override
             public void onResponse(Call<ResponseContainer<LoginResponse>> call, Response<ResponseContainer<LoginResponse>> response) {

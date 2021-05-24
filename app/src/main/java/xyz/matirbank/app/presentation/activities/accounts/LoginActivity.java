@@ -10,7 +10,7 @@ import android.view.View;
 import javax.inject.Inject;
 
 import xyz.matirbank.app.ThisApplication;
-import xyz.matirbank.app.api.entities.accounts.requests.Login;
+import xyz.matirbank.app.api.entities.accounts.requests.LoginRequest;
 import xyz.matirbank.app.databinding.ActivityLoginBinding;
 import xyz.matirbank.app.presentation.viewmodels.LoginViewModel;
 import xyz.matirbank.app.services.interfaces.ISharedPreference;
@@ -61,11 +61,11 @@ public class LoginActivity extends AppCompatActivity {
         String phone = binding.editPhone.getText().toString();
         String password = binding.editPassword.getText().toString();
 
-        Login login = new Login();
-        login.setPhone(phone);
-        login.setPassword(password);
+        LoginRequest loginRequest = new LoginRequest();
+        loginRequest.setPhone(phone);
+        loginRequest.setPassword(password);
 
-        loginViewModel.getAccountsViewModel().accountsLogin(login);
+        loginViewModel.getAccountsViewModel().accountsLogin(loginRequest);
         showLoading();
     }
 
