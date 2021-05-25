@@ -15,7 +15,7 @@ import xyz.matirbank.app.repositories.CardsRepository;
 public class CardsViewModel extends AndroidViewModel {
 
     private final CardsRepository cardsRepository = new CardsRepository();
-    private final LiveData<ResponseContainer<List<CardResponse>>> cards = cardsRepository.getCards();
+    private final LiveData<ResponseContainer<List<CardResponse>>> cards = cardsRepository.getCardList();
     private final LiveData<ResponseContainer<CardResponse>> createCard = cardsRepository.getCreateCard();
     private final LiveData<ResponseContainer<CardResponse>> readCard = cardsRepository.getReadCard();
     private final LiveData<ResponseContainer<CardResponse>> updateCard = cardsRepository.getUpdateCard();
@@ -24,6 +24,8 @@ public class CardsViewModel extends AndroidViewModel {
     public CardsViewModel(@NonNull Application application) {
         super(application);
     }
+
+    /* Request */
 
     public void cards() {
         cardsRepository.cards();
@@ -44,6 +46,8 @@ public class CardsViewModel extends AndroidViewModel {
     public void deleteCard(String request) {
         cardsRepository.deleteCard(request);
     }
+
+    /* Get */
 
     public LiveData<ResponseContainer<List<CardResponse>>> getCards() {
         return cards;

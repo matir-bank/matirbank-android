@@ -1,4 +1,4 @@
-package xyz.matirbank.app.api.interfaces.apis;
+package xyz.matirbank.app.api.interfaces;
 
 import java.util.List;
 
@@ -16,7 +16,7 @@ import xyz.matirbank.app.api.entities.cards.responses.CardResponse;
 public interface ICards {
 
     @GET("/cards/")
-    Call<ResponseContainer<List<CardResponse>>> cards();
+    Call<ResponseContainer<List<CardResponse>>> cardList();
 
     @POST("/cards/")
     Call<ResponseContainer<CardResponse>> createCard(@Body CardRequest request);

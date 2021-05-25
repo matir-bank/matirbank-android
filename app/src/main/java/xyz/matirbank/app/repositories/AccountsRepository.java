@@ -1,14 +1,9 @@
 package xyz.matirbank.app.repositories;
 
 import android.util.Log;
-
-import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
-
 import java.util.List;
-
 import javax.inject.Inject;
-
 import okhttp3.MultipartBody;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -16,20 +11,22 @@ import retrofit2.Response;
 import xyz.matirbank.app.ThisApplication;
 import xyz.matirbank.app.api.entities.accounts.responses.IdCardResponse;
 import xyz.matirbank.app.api.entities.accounts.responses.PhotoResponse;
-import xyz.matirbank.app.api.interfaces.managers.IAccountsAPI;
+import xyz.matirbank.app.api.interfaces.IAccounts;
 import xyz.matirbank.app.api.entities.accounts.requests.LoginRequest;
 import xyz.matirbank.app.api.entities.accounts.responses.AccountResponse;
 import xyz.matirbank.app.api.entities.accounts.responses.LoginResponse;
 import xyz.matirbank.app.api.entities.accounts.requests.RegisterRequest;
 import xyz.matirbank.app.api.entities.accounts.responses.RegisterResponse;
 import xyz.matirbank.app.api.entities.base.ResponseContainer;
+import xyz.matirbank.app.services.interfaces.IRetrofitService;
 
 public class AccountsRepository {
 
     @Inject
-    IAccountsAPI accountsAPI;
+    IRetrofitService _retrofitService;
+    private final IAccounts accountsAPI;
 
-    private final MutableLiveData<ResponseContainer<AccountResponse>> account = new MutableLiveData<>();
+    private final MutableLiveData<ResponseContainer<AccountResponse>> accountSelf = new MutableLiveData<>();
     private final MutableLiveData<ResponseContainer<AccountResponse>> accountDetails = new MutableLiveData<>();
     private final MutableLiveData<ResponseContainer<RegisterResponse>> accountsRegister = new MutableLiveData<>();
     private final MutableLiveData<ResponseContainer<LoginResponse>> accountsLogin = new MutableLiveData<>();
@@ -40,30 +37,29 @@ public class AccountsRepository {
     private final MutableLiveData<ResponseContainer<List<IdCardResponse>>> idCardList = new MutableLiveData<>();
     private final MutableLiveData<ResponseContainer<IdCardResponse>> addIdCard = new MutableLiveData<>();
 
-
     public AccountsRepository() {
-        Log.d("Repository", "AccountsRepository Init");
         ThisApplication.getInstance().getComponents().inject(this);
+        accountsAPI = _retrofitService.getClient().create(IAccounts.class);
     }
 
     /* Request */
 
-    public void account() {
-        accountsAPI.account(new Callback<ResponseContainer<AccountResponse>>() {
+    public void accountSelf() {
+        accountsAPI.accountSelf().enqueue(new Callback<ResponseContainer<AccountResponse>>() {
             @Override
             public void onResponse(Call<ResponseContainer<AccountResponse>> call, Response<ResponseContainer<AccountResponse>> response) {
-                account.postValue(response.body());
+                accountSelf.postValue(response.body());
             }
 
             @Override
             public void onFailure(Call<ResponseContainer<AccountResponse>> call, Throwable t) {
-                account.postValue(null);
+                accountSelf.postValue(null);
             }
         });
     }
 
     public void accountDetails(String request) {
-        accountsAPI.accountDetails(request, new Callback<ResponseContainer<AccountResponse>>() {
+        accountsAPI.accountsDetails(request).enqueue(new Callback<ResponseContainer<AccountResponse>>() {
             @Override
             public void onResponse(Call<ResponseContainer<AccountResponse>> call, Response<ResponseContainer<AccountResponse>> response) {
                 accountDetails.postValue(response.body());
@@ -77,7 +73,7 @@ public class AccountsRepository {
     }
 
     public void accountsRegister(RegisterRequest request) {
-        accountsAPI.accountsRegister(request, new Callback<ResponseContainer<RegisterResponse>>() {
+        accountsAPI.accountsRegister(request).enqueue(new Callback<ResponseContainer<RegisterResponse>>() {
             @Override
             public void onResponse(Call<ResponseContainer<RegisterResponse>> call, Response<ResponseContainer<RegisterResponse>> response) {
                 accountsRegister.postValue(response.body());
@@ -91,7 +87,7 @@ public class AccountsRepository {
     }
 
     public void accountsLogin(LoginRequest request) {
-        accountsAPI.accountsLogin(request, new Callback<ResponseContainer<LoginResponse>>() {
+        accountsAPI.accountsLogin(request).enqueue(new Callback<ResponseContainer<LoginResponse>>() {
             @Override
             public void onResponse(Call<ResponseContainer<LoginResponse>> call, Response<ResponseContainer<LoginResponse>> response) {
                 accountsLogin.postValue(response.body());
@@ -105,7 +101,7 @@ public class AccountsRepository {
     }
 
     public void accountsLogout() {
-        accountsAPI.accountsLogout(new Callback<ResponseContainer<Object>>() {
+        accountsAPI.accountsLogout().enqueue(new Callback<ResponseContainer<Object>>() {
             @Override
             public void onResponse(Call<ResponseContainer<Object>> call, Response<ResponseContainer<Object>> response) {
                 accountsLogout.postValue(response.body());
@@ -119,7 +115,7 @@ public class AccountsRepository {
     }
 
     public void accountsLogoutAll() {
-        accountsAPI.accountsLogoutAll(new Callback<ResponseContainer<Object>>() {
+        accountsAPI.accountsLogoutAll().enqueue(new Callback<ResponseContainer<Object>>() {
             @Override
             public void onResponse(Call<ResponseContainer<Object>> call, Response<ResponseContainer<Object>> response) {
                 accountsLogoutAll.postValue(response.body());
@@ -133,7 +129,7 @@ public class AccountsRepository {
     }
 
     public void photo() {
-        accountsAPI.photo(new Callback<ResponseContainer<PhotoResponse>>() {
+        accountsAPI.photo().enqueue(new Callback<ResponseContainer<PhotoResponse>>() {
             @Override
             public void onResponse(Call<ResponseContainer<PhotoResponse>> call, Response<ResponseContainer<PhotoResponse>> response) {
                 photo.postValue(response.body());
@@ -147,7 +143,7 @@ public class AccountsRepository {
     }
 
     public void addPhoto(MultipartBody.Part file) {
-        accountsAPI.addPhoto(file, new Callback<ResponseContainer<PhotoResponse>>() {
+        accountsAPI.addPhoto(file).enqueue(new Callback<ResponseContainer<PhotoResponse>>() {
             @Override
             public void onResponse(Call<ResponseContainer<PhotoResponse>> call, Response<ResponseContainer<PhotoResponse>> response) {
                 addPhoto.postValue(response.body());
@@ -161,7 +157,7 @@ public class AccountsRepository {
     }
 
     public void idCardList() {
-        accountsAPI.idCardList(new Callback<ResponseContainer<List<IdCardResponse>>>() {
+        accountsAPI.idCardList().enqueue(new Callback<ResponseContainer<List<IdCardResponse>>>() {
             @Override
             public void onResponse(Call<ResponseContainer<List<IdCardResponse>>> call, Response<ResponseContainer<List<IdCardResponse>>> response) {
                 idCardList.postValue(response.body());
@@ -175,7 +171,7 @@ public class AccountsRepository {
     }
 
     public void addIdCard(MultipartBody.Part type, MultipartBody.Part file) {
-        accountsAPI.addIdCard(type, file, new Callback<ResponseContainer<IdCardResponse>>() {
+        accountsAPI.addIdCard(type, file).enqueue(new Callback<ResponseContainer<IdCardResponse>>() {
             @Override
             public void onResponse(Call<ResponseContainer<IdCardResponse>> call, Response<ResponseContainer<IdCardResponse>> response) {
                 addIdCard.postValue(response.body());
@@ -190,27 +186,27 @@ public class AccountsRepository {
 
     /* Get */
 
-    public LiveData<ResponseContainer<AccountResponse>> getAccount() {
-        return account;
+    public MutableLiveData<ResponseContainer<AccountResponse>> getAccountSelf() {
+        return accountSelf;
     }
 
-    public LiveData<ResponseContainer<AccountResponse>> getAccountDetails() {
+    public MutableLiveData<ResponseContainer<AccountResponse>> getAccountDetails() {
         return accountDetails;
     }
 
-    public LiveData<ResponseContainer<RegisterResponse>> getAccountsRegister() {
+    public MutableLiveData<ResponseContainer<RegisterResponse>> getAccountsRegister() {
         return accountsRegister;
     }
 
-    public LiveData<ResponseContainer<LoginResponse>> getAccountsLogin() {
+    public MutableLiveData<ResponseContainer<LoginResponse>> getAccountsLogin() {
         return accountsLogin;
     }
 
-    public LiveData<ResponseContainer<Object>> getAccountsLogout() {
+    public MutableLiveData<ResponseContainer<Object>> getAccountsLogout() {
         return accountsLogout;
     }
 
-    public LiveData<ResponseContainer<Object>> getAccountsLogoutAll() {
+    public MutableLiveData<ResponseContainer<Object>> getAccountsLogoutAll() {
         return accountsLogoutAll;
     }
 

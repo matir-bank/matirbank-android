@@ -1,4 +1,4 @@
-package xyz.matirbank.app.api.interfaces.apis;
+package xyz.matirbank.app.api.interfaces;
 
 import java.util.List;
 
@@ -22,7 +22,7 @@ import xyz.matirbank.app.api.entities.base.ResponseContainer;
 public interface IAccounts {
 
     @GET("/accounts/")
-    Call<ResponseContainer<AccountResponse>> accountsList();
+    Call<ResponseContainer<AccountResponse>> accountSelf();
 
     @GET("/accounts/")
     Call<ResponseContainer<AccountResponse>> accountsDetails(@Query("phone") String request);

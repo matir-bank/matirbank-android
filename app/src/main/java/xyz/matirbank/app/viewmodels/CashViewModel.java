@@ -27,6 +27,8 @@ public class CashViewModel extends AndroidViewModel {
         super(application);
     }
 
+    /* Request */
+
     public void transactionList(){
         cashRepository.transactionList();
     }
@@ -49,6 +51,8 @@ public class CashViewModel extends AndroidViewModel {
     public CashRepository getCashRepository() {
         return cashRepository;
     }
+
+    /* Get */
 
     public LiveData<ResponseContainer<List<TransactionResponse>>> getTransactionList() {
         return transactionList;

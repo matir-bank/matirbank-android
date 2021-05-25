@@ -1,4 +1,4 @@
-package xyz.matirbank.app.api.interfaces.apis;
+package xyz.matirbank.app.api.interfaces;
 
 import java.util.List;
 

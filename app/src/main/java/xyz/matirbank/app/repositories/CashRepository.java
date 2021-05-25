@@ -13,12 +13,14 @@ import xyz.matirbank.app.api.entities.cash.requests.TopUpRequest;
 import xyz.matirbank.app.api.entities.cash.requests.TransactionRequest;
 import xyz.matirbank.app.api.entities.cash.responses.AddFundResponse;
 import xyz.matirbank.app.api.entities.cash.responses.TransactionResponse;
-import xyz.matirbank.app.api.interfaces.managers.ICashAPI;
+import xyz.matirbank.app.api.interfaces.ICash;
+import xyz.matirbank.app.services.interfaces.IRetrofitService;
 
 public class CashRepository {
 
     @Inject
-    ICashAPI cashAPI;
+    IRetrofitService _retrofitService;
+    private final ICash cashAPI;
 
     private final MutableLiveData<ResponseContainer<List<TransactionResponse>>> transactionList = new MutableLiveData<>();
     private final MutableLiveData<ResponseContainer<TransactionResponse>> transactionCreate = new MutableLiveData<>();
@@ -28,10 +30,11 @@ public class CashRepository {
 
     public CashRepository() {
         ThisApplication.getInstance().getComponents().inject(this);
+        cashAPI = _retrofitService.getClient().create(ICash.class);
     }
 
     public void transactionList() {
-        cashAPI.transactionList(new Callback<ResponseContainer<List<TransactionResponse>>>() {
+        cashAPI.transactionList().enqueue(new Callback<ResponseContainer<List<TransactionResponse>>>() {
             @Override
             public void onResponse(Call<ResponseContainer<List<TransactionResponse>>> call, Response<ResponseContainer<List<TransactionResponse>>> response) {
                 transactionList.postValue(response.body());
@@ -45,7 +48,7 @@ public class CashRepository {
     }
 
     public void transactionCreate(TransactionRequest request) {
-        cashAPI.transactionCreate(request, new Callback<ResponseContainer<TransactionResponse>>() {
+        cashAPI.transactionCreate(request).enqueue(new Callback<ResponseContainer<TransactionResponse>>() {
             @Override
             public void onResponse(Call<ResponseContainer<TransactionResponse>> call, Response<ResponseContainer<TransactionResponse>> response) {
                 transactionCreate.postValue(response.body());
@@ -59,7 +62,7 @@ public class CashRepository {
     }
 
     public void transactionDetails(int request) {
-        cashAPI.transactionDetails(request, new Callback<ResponseContainer<TransactionResponse>>() {
+        cashAPI.transactionDetails(request).enqueue(new Callback<ResponseContainer<TransactionResponse>>() {
             @Override
             public void onResponse(Call<ResponseContainer<TransactionResponse>> call, Response<ResponseContainer<TransactionResponse>> response) {
                 transactionDetails.postValue(response.body());
@@ -73,7 +76,7 @@ public class CashRepository {
     }
 
     public void addFund(AddFundRequest request) {
-        cashAPI.addFund(request, new Callback<ResponseContainer<AddFundResponse>>() {
+        cashAPI.addFund(request).enqueue(new Callback<ResponseContainer<AddFundResponse>>() {
             @Override
             public void onResponse(Call<ResponseContainer<AddFundResponse>> call, Response<ResponseContainer<AddFundResponse>> response) {
                 addFund.postValue(response.body());
@@ -87,7 +90,7 @@ public class CashRepository {
     }
 
     public void topUp(TopUpRequest request) {
-        cashAPI.topUp(request, new Callback<ResponseContainer<TransactionResponse>>() {
+        cashAPI.topUp(request).enqueue(new Callback<ResponseContainer<TransactionResponse>>() {
             @Override
             public void onResponse(Call<ResponseContainer<TransactionResponse>> call, Response<ResponseContainer<TransactionResponse>> response) {
                 topUp.postValue(response.body());
@@ -99,6 +102,8 @@ public class CashRepository {
             }
         });
     }
+
+    /* Get */
 
     public MutableLiveData<ResponseContainer<List<TransactionResponse>>> getTransactionList() {
         return transactionList;
