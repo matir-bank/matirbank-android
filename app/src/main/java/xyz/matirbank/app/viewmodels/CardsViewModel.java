@@ -5,21 +5,19 @@ import android.app.Application;
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
-import java.util.List;
-import xyz.matirbank.app.api.entities.base.DeleteResponse;
-import xyz.matirbank.app.api.entities.base.ResponseContainer;
+
+import xyz.matirbank.app.api.entities.Types;
 import xyz.matirbank.app.api.entities.cards.requests.CardRequest;
-import xyz.matirbank.app.api.entities.cards.responses.CardResponse;
 import xyz.matirbank.app.repositories.CardsRepository;
 
 public class CardsViewModel extends AndroidViewModel {
 
     private final CardsRepository cardsRepository = new CardsRepository();
-    private final LiveData<ResponseContainer<List<CardResponse>>> cards = cardsRepository.getCardList();
-    private final LiveData<ResponseContainer<CardResponse>> createCard = cardsRepository.getCreateCard();
-    private final LiveData<ResponseContainer<CardResponse>> readCard = cardsRepository.getReadCard();
-    private final LiveData<ResponseContainer<CardResponse>> updateCard = cardsRepository.getUpdateCard();
-    private final LiveData<ResponseContainer<DeleteResponse>> deleteCard = cardsRepository.getDeleteCard();
+    private final LiveData<Types.CardListResponse> cards = cardsRepository.getCardList();
+    private final LiveData<Types.CardResponse> createCard = cardsRepository.getCreateCard();
+    private final LiveData<Types.CardResponse> readCard = cardsRepository.getReadCard();
+    private final LiveData<Types.CardResponse> updateCard = cardsRepository.getUpdateCard();
+    private final LiveData<Types.DeleteResponse> deleteCard = cardsRepository.getDeleteCard();
 
     public CardsViewModel(@NonNull Application application) {
         super(application);
@@ -49,23 +47,23 @@ public class CardsViewModel extends AndroidViewModel {
 
     /* Get */
 
-    public LiveData<ResponseContainer<List<CardResponse>>> getCards() {
+    public LiveData<Types.CardListResponse> getCards() {
         return cards;
     }
 
-    public LiveData<ResponseContainer<CardResponse>> getCreateCard() {
+    public LiveData<Types.CardResponse> getCreateCard() {
         return createCard;
     }
 
-    public LiveData<ResponseContainer<CardResponse>> getReadCard() {
+    public LiveData<Types.CardResponse> getReadCard() {
         return readCard;
     }
 
-    public LiveData<ResponseContainer<CardResponse>> getUpdateCard() {
+    public LiveData<Types.CardResponse> getUpdateCard() {
         return updateCard;
     }
 
-    public LiveData<ResponseContainer<DeleteResponse>> getDeleteCard() {
+    public LiveData<Types.DeleteResponse> getDeleteCard() {
         return deleteCard;
     }
 }

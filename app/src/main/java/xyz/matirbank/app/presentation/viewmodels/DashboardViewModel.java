@@ -28,7 +28,7 @@ public class DashboardViewModel {
 
     private void observers(DashboardActivity activity) {
 
-        accountsViewModel.getAccount().observe(activity, response -> {
+        accountsViewModel.getAccountSelf().observe(activity, response -> {
             if(response != null) {
                 if(response.getData() != null) {
                     activity.binding.txtName.setText(response.getData().getName());

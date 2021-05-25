@@ -1,7 +1,5 @@
 package xyz.matirbank.app.api.interfaces;
 
-import java.util.List;
-
 import okhttp3.MultipartBody;
 import retrofit2.Call;
 import retrofit2.http.Body;
@@ -11,46 +9,41 @@ import retrofit2.http.POST;
 import retrofit2.http.Part;
 import retrofit2.http.Query;
 import xyz.matirbank.app.api.entities.accounts.requests.LoginRequest;
-import xyz.matirbank.app.api.entities.accounts.responses.AccountResponse;
-import xyz.matirbank.app.api.entities.accounts.responses.IdCardResponse;
-import xyz.matirbank.app.api.entities.accounts.responses.LoginResponse;
 import xyz.matirbank.app.api.entities.accounts.requests.RegisterRequest;
-import xyz.matirbank.app.api.entities.accounts.responses.PhotoResponse;
-import xyz.matirbank.app.api.entities.accounts.responses.RegisterResponse;
-import xyz.matirbank.app.api.entities.base.ResponseContainer;
+import xyz.matirbank.app.api.entities.Types;
 
 public interface IAccounts {
 
     @GET("/accounts/")
-    Call<ResponseContainer<AccountResponse>> accountSelf();
+    Call<Types.AccountResponse> accountSelf();
 
     @GET("/accounts/")
-    Call<ResponseContainer<AccountResponse>> accountsDetails(@Query("phone") String request);
+    Call<Types.AccountResponse> accountsDetails(@Query("phone") String request);
 
     @POST("/accounts/register/")
-    Call<ResponseContainer<RegisterResponse>> accountsRegister(@Body RegisterRequest request);
+    Call<Types.RegisterResponse> accountsRegister(@Body RegisterRequest request);
 
     @POST("/accounts/login/")
-    Call<ResponseContainer<LoginResponse>> accountsLogin(@Body LoginRequest request);
+    Call<Types.LoginResponse> accountsLogin(@Body LoginRequest request);
 
     @GET("/accounts/logout/")
-    Call<ResponseContainer<Object>> accountsLogout();
+    Call<Types.ObjectResponse> accountsLogout();
 
     @GET("/accounts/logoutall/")
-    Call<ResponseContainer<Object>> accountsLogoutAll();
+    Call<Types.ObjectResponse> accountsLogoutAll();
 
     @GET("/photo/")
-    Call<ResponseContainer<PhotoResponse>> photo();
+    Call<Types.PhotoResponse> photo();
 
     @Multipart
     @POST("/photo/")
-    Call<ResponseContainer<PhotoResponse>> addPhoto(@Part MultipartBody.Part file);
+    Call<Types.PhotoResponse> addPhoto(@Part MultipartBody.Part file);
 
     @GET("/id_card/")
-    Call<ResponseContainer<List<IdCardResponse>>> idCardList();
+    Call<Types.IdCardListResponse> idCardList();
 
     @Multipart
     @POST("/id_card/")
-    Call<ResponseContainer<IdCardResponse>> addIdCard(@Part MultipartBody.Part type, @Part MultipartBody.Part file);
+    Call<Types.IdCardResponse> addIdCard(@Part MultipartBody.Part type, @Part MultipartBody.Part file);
 
 }

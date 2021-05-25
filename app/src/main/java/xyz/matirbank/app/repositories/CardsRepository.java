@@ -1,16 +1,14 @@
 package xyz.matirbank.app.repositories;
 
 import androidx.lifecycle.MutableLiveData;
-import java.util.List;
+
 import javax.inject.Inject;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import xyz.matirbank.app.ThisApplication;
-import xyz.matirbank.app.api.entities.base.DeleteResponse;
-import xyz.matirbank.app.api.entities.base.ResponseContainer;
+import xyz.matirbank.app.api.entities.Types;
 import xyz.matirbank.app.api.entities.cards.requests.CardRequest;
-import xyz.matirbank.app.api.entities.cards.responses.CardResponse;
 import xyz.matirbank.app.api.interfaces.ICards;
 import xyz.matirbank.app.services.interfaces.IRetrofitService;
 
@@ -20,11 +18,11 @@ public class CardsRepository {
     IRetrofitService _retrofitService;
     private final ICards cardsAPI;
 
-    private final MutableLiveData<ResponseContainer<List<CardResponse>>> cardList = new MutableLiveData<>();
-    private final MutableLiveData<ResponseContainer<CardResponse>> createCard = new MutableLiveData<>();
-    private final MutableLiveData<ResponseContainer<CardResponse>> readCard = new MutableLiveData<>();
-    private final MutableLiveData<ResponseContainer<CardResponse>> updateCard = new MutableLiveData<>();
-    private final MutableLiveData<ResponseContainer<DeleteResponse>> deleteCard = new MutableLiveData<>();
+    private final MutableLiveData<Types.CardListResponse> cardList = new MutableLiveData<>();
+    private final MutableLiveData<Types.CardResponse> createCard = new MutableLiveData<>();
+    private final MutableLiveData<Types.CardResponse> readCard = new MutableLiveData<>();
+    private final MutableLiveData<Types.CardResponse> updateCard = new MutableLiveData<>();
+    private final MutableLiveData<Types.DeleteResponse> deleteCard = new MutableLiveData<>();
 
     public CardsRepository() {
         ThisApplication.getInstance().getComponents().inject(this);
@@ -32,70 +30,70 @@ public class CardsRepository {
     }
 
     public void cards() {
-        cardsAPI.cardList().enqueue(new Callback<ResponseContainer<List<CardResponse>>>() {
+        cardsAPI.cardList().enqueue(new Callback<Types.CardListResponse>() {
             @Override
-            public void onResponse(Call<ResponseContainer<List<CardResponse>>> call, Response<ResponseContainer<List<CardResponse>>> response) {
+            public void onResponse(Call<Types.CardListResponse> call, Response<Types.CardListResponse> response) {
                 cardList.postValue(response.body());
             }
 
             @Override
-            public void onFailure(Call<ResponseContainer<List<CardResponse>>> call, Throwable t) {
+            public void onFailure(Call<Types.CardListResponse> call, Throwable t) {
                 cardList.postValue(null);
             }
         });
     }
 
     public void createCard(CardRequest request) {
-        cardsAPI.createCard(request).enqueue(new Callback<ResponseContainer<CardResponse>>() {
+        cardsAPI.createCard(request).enqueue(new Callback<Types.CardResponse>() {
             @Override
-            public void onResponse(Call<ResponseContainer<CardResponse>> call, Response<ResponseContainer<CardResponse>> response) {
+            public void onResponse(Call<Types.CardResponse> call, Response<Types.CardResponse> response) {
                 createCard.postValue(response.body());
             }
 
             @Override
-            public void onFailure(Call<ResponseContainer<CardResponse>> call, Throwable t) {
+            public void onFailure(Call<Types.CardResponse> call, Throwable t) {
                 createCard.postValue(null);
             }
         });
     }
 
     public void readCard(String request) {
-        cardsAPI.readCard(request).enqueue(new Callback<ResponseContainer<CardResponse>>() {
+        cardsAPI.readCard(request).enqueue(new Callback<Types.CardResponse>() {
             @Override
-            public void onResponse(Call<ResponseContainer<CardResponse>> call, Response<ResponseContainer<CardResponse>> response) {
+            public void onResponse(Call<Types.CardResponse> call, Response<Types.CardResponse> response) {
                 readCard.postValue(response.body());
             }
 
             @Override
-            public void onFailure(Call<ResponseContainer<CardResponse>> call, Throwable t) {
+            public void onFailure(Call<Types.CardResponse> call, Throwable t) {
                 readCard.postValue(null);
             }
         });
     }
 
     public void updateCard(String request) {
-        cardsAPI.updateCard(request).enqueue(new Callback<ResponseContainer<CardResponse>>() {
+        cardsAPI.updateCard(request).enqueue(new Callback<Types.CardResponse>() {
             @Override
-            public void onResponse(Call<ResponseContainer<CardResponse>> call, Response<ResponseContainer<CardResponse>> response) {
+            public void onResponse(Call<Types.CardResponse> call, Response<Types.CardResponse> response) {
                 updateCard.postValue(response.body());
             }
 
             @Override
-            public void onFailure(Call<ResponseContainer<CardResponse>> call, Throwable t) {
+            public void onFailure(Call<Types.CardResponse> call, Throwable t) {
                 updateCard.postValue(null);
             }
         });
     }
 
     public void deleteCard(String request) {
-        cardsAPI.deleteCard(request).enqueue(new Callback<ResponseContainer<DeleteResponse>>() {
+        cardsAPI.deleteCard(request).enqueue(new Callback<Types.DeleteResponse>() {
             @Override
-            public void onResponse(Call<ResponseContainer<DeleteResponse>> call, Response<ResponseContainer<DeleteResponse>> response) {
+            public void onResponse(Call<Types.DeleteResponse> call, Response<Types.DeleteResponse> response) {
                 deleteCard.postValue(response.body());
             }
 
             @Override
-            public void onFailure(Call<ResponseContainer<DeleteResponse>> call, Throwable t) {
+            public void onFailure(Call<Types.DeleteResponse> call, Throwable t) {
                 deleteCard.postValue(null);
             }
         });
@@ -103,23 +101,23 @@ public class CardsRepository {
 
     /* Get */
 
-    public MutableLiveData<ResponseContainer<List<CardResponse>>> getCardList() {
+    public MutableLiveData<Types.CardListResponse> getCardList() {
         return cardList;
     }
 
-    public MutableLiveData<ResponseContainer<CardResponse>> getCreateCard() {
+    public MutableLiveData<Types.CardResponse> getCreateCard() {
         return createCard;
     }
 
-    public MutableLiveData<ResponseContainer<CardResponse>> getReadCard() {
+    public MutableLiveData<Types.CardResponse> getReadCard() {
         return readCard;
     }
 
-    public MutableLiveData<ResponseContainer<CardResponse>> getUpdateCard() {
+    public MutableLiveData<Types.CardResponse> getUpdateCard() {
         return updateCard;
     }
 
-    public MutableLiveData<ResponseContainer<DeleteResponse>> getDeleteCard() {
+    public MutableLiveData<Types.DeleteResponse> getDeleteCard() {
         return deleteCard;
     }
 }

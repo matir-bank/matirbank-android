@@ -23,6 +23,9 @@ import static android.content.Intent.FLAG_ACTIVITY_SINGLE_TOP;
 
 public class SplashActivity extends AppCompatActivity {
 
+    @Inject
+    ISharedPreference _sharedPreference;
+    
     SplashViewModel splashViewModel;
     public ActivitySplashBinding binding;
     public boolean isLoggedIn = false;
@@ -38,11 +41,14 @@ public class SplashActivity extends AppCompatActivity {
         binding = ActivitySplashBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
+        CommonConstants.AUTH_TOKEN = _sharedPreference.loadPreference("_AUTH_TOKEN", "");
+        CommonConstants.AUTH_EXPIRES = _sharedPreference.loadPreference("_AUTH_EXPIRES", 0L);
+
         // Init ViewModel
         splashViewModel = new SplashViewModel(this);
 
         // Try Loading Profile
-        splashViewModel.getAccountsViewModel().account();
+        splashViewModel.getAccountsViewModel().accountSelf();
 
         // Animate Views
         animateViews();

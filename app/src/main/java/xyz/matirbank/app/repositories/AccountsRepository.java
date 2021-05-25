@@ -1,23 +1,17 @@
 package xyz.matirbank.app.repositories;
 
-import android.util.Log;
 import androidx.lifecycle.MutableLiveData;
-import java.util.List;
+
 import javax.inject.Inject;
 import okhttp3.MultipartBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import xyz.matirbank.app.ThisApplication;
-import xyz.matirbank.app.api.entities.accounts.responses.IdCardResponse;
-import xyz.matirbank.app.api.entities.accounts.responses.PhotoResponse;
+import xyz.matirbank.app.api.entities.Types;
 import xyz.matirbank.app.api.interfaces.IAccounts;
 import xyz.matirbank.app.api.entities.accounts.requests.LoginRequest;
-import xyz.matirbank.app.api.entities.accounts.responses.AccountResponse;
-import xyz.matirbank.app.api.entities.accounts.responses.LoginResponse;
 import xyz.matirbank.app.api.entities.accounts.requests.RegisterRequest;
-import xyz.matirbank.app.api.entities.accounts.responses.RegisterResponse;
-import xyz.matirbank.app.api.entities.base.ResponseContainer;
 import xyz.matirbank.app.services.interfaces.IRetrofitService;
 
 public class AccountsRepository {
@@ -26,16 +20,16 @@ public class AccountsRepository {
     IRetrofitService _retrofitService;
     private final IAccounts accountsAPI;
 
-    private final MutableLiveData<ResponseContainer<AccountResponse>> accountSelf = new MutableLiveData<>();
-    private final MutableLiveData<ResponseContainer<AccountResponse>> accountDetails = new MutableLiveData<>();
-    private final MutableLiveData<ResponseContainer<RegisterResponse>> accountsRegister = new MutableLiveData<>();
-    private final MutableLiveData<ResponseContainer<LoginResponse>> accountsLogin = new MutableLiveData<>();
-    private final MutableLiveData<ResponseContainer<Object>> accountsLogout = new MutableLiveData<>();
-    private final MutableLiveData<ResponseContainer<Object>> accountsLogoutAll = new MutableLiveData<>();
-    private final MutableLiveData<ResponseContainer<PhotoResponse>> photo = new MutableLiveData<>();
-    private final MutableLiveData<ResponseContainer<PhotoResponse>> addPhoto = new MutableLiveData<>();
-    private final MutableLiveData<ResponseContainer<List<IdCardResponse>>> idCardList = new MutableLiveData<>();
-    private final MutableLiveData<ResponseContainer<IdCardResponse>> addIdCard = new MutableLiveData<>();
+    private final MutableLiveData<Types.AccountResponse> accountSelf = new MutableLiveData<>();
+    private final MutableLiveData<Types.AccountResponse> accountDetails = new MutableLiveData<>();
+    private final MutableLiveData<Types.RegisterResponse> accountsRegister = new MutableLiveData<>();
+    private final MutableLiveData<Types.LoginResponse> accountsLogin = new MutableLiveData<>();
+    private final MutableLiveData<Types.ObjectResponse> accountsLogout = new MutableLiveData<>();
+    private final MutableLiveData<Types.ObjectResponse> accountsLogoutAll = new MutableLiveData<>();
+    private final MutableLiveData<Types.PhotoResponse> photo = new MutableLiveData<>();
+    private final MutableLiveData<Types.PhotoResponse> addPhoto = new MutableLiveData<>();
+    private final MutableLiveData<Types.IdCardListResponse> idCardList = new MutableLiveData<>();
+    private final MutableLiveData<Types.IdCardResponse> addIdCard = new MutableLiveData<>();
 
     public AccountsRepository() {
         ThisApplication.getInstance().getComponents().inject(this);
@@ -45,140 +39,140 @@ public class AccountsRepository {
     /* Request */
 
     public void accountSelf() {
-        accountsAPI.accountSelf().enqueue(new Callback<ResponseContainer<AccountResponse>>() {
+        accountsAPI.accountSelf().enqueue(new Callback<Types.AccountResponse>() {
             @Override
-            public void onResponse(Call<ResponseContainer<AccountResponse>> call, Response<ResponseContainer<AccountResponse>> response) {
+            public void onResponse(Call<Types.AccountResponse> call, Response<Types.AccountResponse> response) {
                 accountSelf.postValue(response.body());
             }
 
             @Override
-            public void onFailure(Call<ResponseContainer<AccountResponse>> call, Throwable t) {
+            public void onFailure(Call<Types.AccountResponse> call, Throwable t) {
                 accountSelf.postValue(null);
             }
         });
     }
 
     public void accountDetails(String request) {
-        accountsAPI.accountsDetails(request).enqueue(new Callback<ResponseContainer<AccountResponse>>() {
+        accountsAPI.accountsDetails(request).enqueue(new Callback<Types.AccountResponse>() {
             @Override
-            public void onResponse(Call<ResponseContainer<AccountResponse>> call, Response<ResponseContainer<AccountResponse>> response) {
+            public void onResponse(Call<Types.AccountResponse> call, Response<Types.AccountResponse> response) {
                 accountDetails.postValue(response.body());
             }
 
             @Override
-            public void onFailure(Call<ResponseContainer<AccountResponse>> call, Throwable t) {
+            public void onFailure(Call<Types.AccountResponse> call, Throwable t) {
                 accountDetails.postValue(null);
             }
         });
     }
 
     public void accountsRegister(RegisterRequest request) {
-        accountsAPI.accountsRegister(request).enqueue(new Callback<ResponseContainer<RegisterResponse>>() {
+        accountsAPI.accountsRegister(request).enqueue(new Callback<Types.RegisterResponse>() {
             @Override
-            public void onResponse(Call<ResponseContainer<RegisterResponse>> call, Response<ResponseContainer<RegisterResponse>> response) {
+            public void onResponse(Call<Types.RegisterResponse> call, Response<Types.RegisterResponse> response) {
                 accountsRegister.postValue(response.body());
             }
 
             @Override
-            public void onFailure(Call<ResponseContainer<RegisterResponse>> call, Throwable t) {
+            public void onFailure(Call<Types.RegisterResponse> call, Throwable t) {
                 accountsRegister.postValue(null);
             }
         });
     }
 
     public void accountsLogin(LoginRequest request) {
-        accountsAPI.accountsLogin(request).enqueue(new Callback<ResponseContainer<LoginResponse>>() {
+        accountsAPI.accountsLogin(request).enqueue(new Callback<Types.LoginResponse>() {
             @Override
-            public void onResponse(Call<ResponseContainer<LoginResponse>> call, Response<ResponseContainer<LoginResponse>> response) {
+            public void onResponse(Call<Types.LoginResponse> call, Response<Types.LoginResponse> response) {
                 accountsLogin.postValue(response.body());
             }
 
             @Override
-            public void onFailure(Call<ResponseContainer<LoginResponse>> call, Throwable t) {
+            public void onFailure(Call<Types.LoginResponse> call, Throwable t) {
                 accountsLogin.postValue(null);
             }
         });
     }
 
     public void accountsLogout() {
-        accountsAPI.accountsLogout().enqueue(new Callback<ResponseContainer<Object>>() {
+        accountsAPI.accountsLogout().enqueue(new Callback<Types.ObjectResponse>() {
             @Override
-            public void onResponse(Call<ResponseContainer<Object>> call, Response<ResponseContainer<Object>> response) {
+            public void onResponse(Call<Types.ObjectResponse> call, Response<Types.ObjectResponse> response) {
                 accountsLogout.postValue(response.body());
             }
 
             @Override
-            public void onFailure(Call<ResponseContainer<Object>> call, Throwable t) {
+            public void onFailure(Call<Types.ObjectResponse> call, Throwable t) {
                 accountsLogout.postValue(null);
             }
         });
     }
 
     public void accountsLogoutAll() {
-        accountsAPI.accountsLogoutAll().enqueue(new Callback<ResponseContainer<Object>>() {
+        accountsAPI.accountsLogoutAll().enqueue(new Callback<Types.ObjectResponse>() {
             @Override
-            public void onResponse(Call<ResponseContainer<Object>> call, Response<ResponseContainer<Object>> response) {
+            public void onResponse(Call<Types.ObjectResponse> call, Response<Types.ObjectResponse> response) {
                 accountsLogoutAll.postValue(response.body());
             }
 
             @Override
-            public void onFailure(Call<ResponseContainer<Object>> call, Throwable t) {
+            public void onFailure(Call<Types.ObjectResponse> call, Throwable t) {
                 accountsLogoutAll.postValue(null);
             }
         });
     }
 
     public void photo() {
-        accountsAPI.photo().enqueue(new Callback<ResponseContainer<PhotoResponse>>() {
+        accountsAPI.photo().enqueue(new Callback<Types.PhotoResponse>() {
             @Override
-            public void onResponse(Call<ResponseContainer<PhotoResponse>> call, Response<ResponseContainer<PhotoResponse>> response) {
+            public void onResponse(Call<Types.PhotoResponse> call, Response<Types.PhotoResponse> response) {
                 photo.postValue(response.body());
             }
 
             @Override
-            public void onFailure(Call<ResponseContainer<PhotoResponse>> call, Throwable t) {
+            public void onFailure(Call<Types.PhotoResponse> call, Throwable t) {
                 photo.postValue(null);
             }
         });
     }
 
     public void addPhoto(MultipartBody.Part file) {
-        accountsAPI.addPhoto(file).enqueue(new Callback<ResponseContainer<PhotoResponse>>() {
+        accountsAPI.addPhoto(file).enqueue(new Callback<Types.PhotoResponse>() {
             @Override
-            public void onResponse(Call<ResponseContainer<PhotoResponse>> call, Response<ResponseContainer<PhotoResponse>> response) {
+            public void onResponse(Call<Types.PhotoResponse> call, Response<Types.PhotoResponse> response) {
                 addPhoto.postValue(response.body());
             }
 
             @Override
-            public void onFailure(Call<ResponseContainer<PhotoResponse>> call, Throwable t) {
+            public void onFailure(Call<Types.PhotoResponse> call, Throwable t) {
                 addPhoto.postValue(null);
             }
         });
     }
 
     public void idCardList() {
-        accountsAPI.idCardList().enqueue(new Callback<ResponseContainer<List<IdCardResponse>>>() {
+        accountsAPI.idCardList().enqueue(new Callback<Types.IdCardListResponse>() {
             @Override
-            public void onResponse(Call<ResponseContainer<List<IdCardResponse>>> call, Response<ResponseContainer<List<IdCardResponse>>> response) {
+            public void onResponse(Call<Types.IdCardListResponse> call, Response<Types.IdCardListResponse> response) {
                 idCardList.postValue(response.body());
             }
 
             @Override
-            public void onFailure(Call<ResponseContainer<List<IdCardResponse>>> call, Throwable t) {
+            public void onFailure(Call<Types.IdCardListResponse> call, Throwable t) {
                 idCardList.postValue(null);
             }
         });
     }
 
     public void addIdCard(MultipartBody.Part type, MultipartBody.Part file) {
-        accountsAPI.addIdCard(type, file).enqueue(new Callback<ResponseContainer<IdCardResponse>>() {
+        accountsAPI.addIdCard(type, file).enqueue(new Callback<Types.IdCardResponse>() {
             @Override
-            public void onResponse(Call<ResponseContainer<IdCardResponse>> call, Response<ResponseContainer<IdCardResponse>> response) {
+            public void onResponse(Call<Types.IdCardResponse> call, Response<Types.IdCardResponse> response) {
                 addIdCard.postValue(response.body());
             }
 
             @Override
-            public void onFailure(Call<ResponseContainer<IdCardResponse>> call, Throwable t) {
+            public void onFailure(Call<Types.IdCardResponse> call, Throwable t) {
                 addIdCard.postValue(null);
             }
         });
@@ -186,43 +180,43 @@ public class AccountsRepository {
 
     /* Get */
 
-    public MutableLiveData<ResponseContainer<AccountResponse>> getAccountSelf() {
+    public MutableLiveData<Types.AccountResponse> getAccountSelf() {
         return accountSelf;
     }
 
-    public MutableLiveData<ResponseContainer<AccountResponse>> getAccountDetails() {
+    public MutableLiveData<Types.AccountResponse> getAccountDetails() {
         return accountDetails;
     }
 
-    public MutableLiveData<ResponseContainer<RegisterResponse>> getAccountsRegister() {
+    public MutableLiveData<Types.RegisterResponse> getAccountsRegister() {
         return accountsRegister;
     }
 
-    public MutableLiveData<ResponseContainer<LoginResponse>> getAccountsLogin() {
+    public MutableLiveData<Types.LoginResponse> getAccountsLogin() {
         return accountsLogin;
     }
 
-    public MutableLiveData<ResponseContainer<Object>> getAccountsLogout() {
+    public MutableLiveData<Types.ObjectResponse> getAccountsLogout() {
         return accountsLogout;
     }
 
-    public MutableLiveData<ResponseContainer<Object>> getAccountsLogoutAll() {
+    public MutableLiveData<Types.ObjectResponse> getAccountsLogoutAll() {
         return accountsLogoutAll;
     }
 
-    public MutableLiveData<ResponseContainer<PhotoResponse>> getPhoto() {
+    public MutableLiveData<Types.PhotoResponse> getPhoto() {
         return photo;
     }
 
-    public MutableLiveData<ResponseContainer<PhotoResponse>> getAddPhoto() {
+    public MutableLiveData<Types.PhotoResponse> getAddPhoto() {
         return addPhoto;
     }
 
-    public MutableLiveData<ResponseContainer<List<IdCardResponse>>> getIdCardList() {
+    public MutableLiveData<Types.IdCardListResponse> getIdCardList() {
         return idCardList;
     }
 
-    public MutableLiveData<ResponseContainer<IdCardResponse>> getAddIdCard() {
+    public MutableLiveData<Types.IdCardResponse> getAddIdCard() {
         return addIdCard;
     }
 }

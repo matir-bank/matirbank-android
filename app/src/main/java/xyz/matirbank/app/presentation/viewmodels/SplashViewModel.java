@@ -34,7 +34,7 @@ public class SplashViewModel {
     }
 
     private void observers(SplashActivity activity) {
-        accountsViewModel.getAccount().observe(activity, response -> {
+        accountsViewModel.getAccountSelf().observe(activity, response -> {
             if(response != null){
                 if(response.getData() != null) {
                     if(response.getData().getId() != null) {

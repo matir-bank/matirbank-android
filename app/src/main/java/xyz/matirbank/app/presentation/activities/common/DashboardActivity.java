@@ -25,7 +25,7 @@ public class DashboardActivity extends AppCompatActivity {
         dashboardViewModel = new DashboardViewModel(this);
         initViews();
 
-        dashboardViewModel.getAccountsViewModel().account();
+        dashboardViewModel.getAccountsViewModel().accountSelf();
 
         // Try to Upload Photo
         BitmapDrawable drawable = (BitmapDrawable) binding.imgIcon.getDrawable();

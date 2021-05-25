@@ -5,34 +5,26 @@ import android.app.Application;
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
-import androidx.lifecycle.MutableLiveData;
-
-import java.util.List;
 
 import okhttp3.MultipartBody;
 import xyz.matirbank.app.api.entities.accounts.requests.LoginRequest;
-import xyz.matirbank.app.api.entities.accounts.responses.AccountResponse;
-import xyz.matirbank.app.api.entities.accounts.responses.IdCardResponse;
-import xyz.matirbank.app.api.entities.accounts.responses.LoginResponse;
 import xyz.matirbank.app.api.entities.accounts.requests.RegisterRequest;
-import xyz.matirbank.app.api.entities.accounts.responses.PhotoResponse;
-import xyz.matirbank.app.api.entities.accounts.responses.RegisterResponse;
-import xyz.matirbank.app.api.entities.base.ResponseContainer;
+import xyz.matirbank.app.api.entities.Types;
 import xyz.matirbank.app.repositories.AccountsRepository;
 
 public class AccountsViewModel extends AndroidViewModel {
 
     private final AccountsRepository accountsRepository = new AccountsRepository();
-    private final LiveData<ResponseContainer<AccountResponse>> accountSelf = accountsRepository.getAccountSelf();
-    private final LiveData<ResponseContainer<AccountResponse>> accountDetails = accountsRepository.getAccountDetails();
-    private final LiveData<ResponseContainer<RegisterResponse>> accountsRegister = accountsRepository.getAccountsRegister();
-    private final LiveData<ResponseContainer<LoginResponse>> accountsLogin = accountsRepository.getAccountsLogin();
-    private final LiveData<ResponseContainer<Object>> accountsLogout = accountsRepository.getAccountsLogout();
-    private final LiveData<ResponseContainer<Object>> accountsLogoutAll = accountsRepository.getAccountsLogoutAll();
-    private final LiveData<ResponseContainer<PhotoResponse>> photo = accountsRepository.getPhoto();
-    private final LiveData<ResponseContainer<PhotoResponse>> addPhoto = accountsRepository.getAddPhoto();
-    private final LiveData<ResponseContainer<List<IdCardResponse>>> idCardList = accountsRepository.getIdCardList();
-    private final LiveData<ResponseContainer<IdCardResponse>> addIdCard = accountsRepository.getAddIdCard();
+    private final LiveData<Types.AccountResponse> accountSelf = accountsRepository.getAccountSelf();
+    private final LiveData<Types.AccountResponse> accountDetails = accountsRepository.getAccountDetails();
+    private final LiveData<Types.RegisterResponse> accountsRegister = accountsRepository.getAccountsRegister();
+    private final LiveData<Types.LoginResponse> accountsLogin = accountsRepository.getAccountsLogin();
+    private final LiveData<Types.ObjectResponse> accountsLogout = accountsRepository.getAccountsLogout();
+    private final LiveData<Types.ObjectResponse> accountsLogoutAll = accountsRepository.getAccountsLogoutAll();
+    private final LiveData<Types.PhotoResponse> photo = accountsRepository.getPhoto();
+    private final LiveData<Types.PhotoResponse> addPhoto = accountsRepository.getAddPhoto();
+    private final LiveData<Types.IdCardListResponse> idCardList = accountsRepository.getIdCardList();
+    private final LiveData<Types.IdCardResponse> addIdCard = accountsRepository.getAddIdCard();
 
     public AccountsViewModel(@NonNull Application application) {
         super(application);
@@ -82,43 +74,43 @@ public class AccountsViewModel extends AndroidViewModel {
 
     /* Get */
 
-    public LiveData<ResponseContainer<AccountResponse>> getAccountSelf() {
+    public LiveData<Types.AccountResponse> getAccountSelf() {
         return accountSelf;
     }
 
-    public LiveData<ResponseContainer<AccountResponse>> getAccountDetails() {
+    public LiveData<Types.AccountResponse> getAccountDetails() {
         return accountDetails;
     }
 
-    public LiveData<ResponseContainer<RegisterResponse>> getAccountsRegister() {
+    public LiveData<Types.RegisterResponse> getAccountsRegister() {
         return accountsRegister;
     }
 
-    public LiveData<ResponseContainer<LoginResponse>> getAccountsLogin() {
+    public LiveData<Types.LoginResponse> getAccountsLogin() {
         return accountsLogin;
     }
 
-    public LiveData<ResponseContainer<Object>> getAccountsLogout() {
+    public LiveData<Types.ObjectResponse> getAccountsLogout() {
         return accountsLogout;
     }
 
-    public LiveData<ResponseContainer<Object>> getAccountsLogoutAll() {
+    public LiveData<Types.ObjectResponse> getAccountsLogoutAll() {
         return accountsLogoutAll;
     }
 
-    public LiveData<ResponseContainer<PhotoResponse>> getPhoto() {
+    public LiveData<Types.PhotoResponse> getPhoto() {
         return photo;
     }
 
-    public LiveData<ResponseContainer<PhotoResponse>> getAddPhoto() {
+    public LiveData<Types.PhotoResponse> getAddPhoto() {
         return addPhoto;
     }
 
-    public LiveData<ResponseContainer<List<IdCardResponse>>> getIdCardList() {
+    public LiveData<Types.IdCardListResponse> getIdCardList() {
         return idCardList;
     }
 
-    public LiveData<ResponseContainer<IdCardResponse>> getAddIdCard() {
+    public LiveData<Types.IdCardResponse> getAddIdCard() {
         return addIdCard;
     }
 }

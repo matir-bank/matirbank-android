@@ -1,4 +1,4 @@
-package xyz.matirbank.app.presentation.activities;
+package xyz.matirbank.app.presentation.activities.common;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;

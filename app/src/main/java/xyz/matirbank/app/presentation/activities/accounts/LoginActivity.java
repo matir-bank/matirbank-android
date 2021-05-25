@@ -14,8 +14,12 @@ import xyz.matirbank.app.api.entities.accounts.requests.LoginRequest;
 import xyz.matirbank.app.databinding.ActivityLoginBinding;
 import xyz.matirbank.app.presentation.viewmodels.LoginViewModel;
 import xyz.matirbank.app.services.interfaces.ISharedPreference;
+import xyz.matirbank.app.utils.CommonConstants;
+import xyz.matirbank.app.utils.CommonUtils;
 
 public class LoginActivity extends AppCompatActivity {
+
+
 
     public ActivityLoginBinding binding;
     LoginViewModel loginViewModel;
