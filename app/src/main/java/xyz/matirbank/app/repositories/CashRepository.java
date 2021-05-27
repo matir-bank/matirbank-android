@@ -7,7 +7,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import xyz.matirbank.app.ThisApplication;
-import xyz.matirbank.app.api.entities.Types;
+import xyz.matirbank.app.api.interfaces.Types;
 import xyz.matirbank.app.api.entities.cash.requests.AddFundRequest;
 import xyz.matirbank.app.api.entities.cash.requests.TopUpRequest;
 import xyz.matirbank.app.api.entities.cash.requests.TransactionRequest;
@@ -30,6 +30,8 @@ public class CashRepository {
         ThisApplication.getInstance().getComponents().inject(this);
         cashAPI = _retrofitService.getClient().create(ICash.class);
     }
+
+    /* Request */
 
     public void transactionList() {
         cashAPI.transactionList().enqueue(new Callback<Types.TransactionListResponse>() {

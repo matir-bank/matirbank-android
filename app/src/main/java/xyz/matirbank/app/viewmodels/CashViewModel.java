@@ -6,7 +6,7 @@ import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
-import xyz.matirbank.app.api.entities.Types;
+import xyz.matirbank.app.api.interfaces.Types;
 import xyz.matirbank.app.api.entities.cash.requests.AddFundRequest;
 import xyz.matirbank.app.api.entities.cash.requests.TopUpRequest;
 import xyz.matirbank.app.api.entities.cash.requests.TransactionRequest;

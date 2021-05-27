@@ -7,7 +7,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import xyz.matirbank.app.ThisApplication;
-import xyz.matirbank.app.api.entities.Types;
+import xyz.matirbank.app.api.interfaces.Types;
 import xyz.matirbank.app.api.entities.cards.requests.CardRequest;
 import xyz.matirbank.app.api.interfaces.ICards;
 import xyz.matirbank.app.services.interfaces.IRetrofitService;
@@ -28,6 +28,8 @@ public class CardsRepository {
         ThisApplication.getInstance().getComponents().inject(this);
         cardsAPI = _retrofitService.getClient().create(ICards.class);
     }
+
+    /* Request */
 
     public void cards() {
         cardsAPI.cardList().enqueue(new Callback<Types.CardListResponse>() {
@@ -71,8 +73,8 @@ public class CardsRepository {
         });
     }
 
-    public void updateCard(String request) {
-        cardsAPI.updateCard(request).enqueue(new Callback<Types.CardResponse>() {
+    public void updateCard(String request, CardRequest requestBody) {
+        cardsAPI.updateCard(request, requestBody).enqueue(new Callback<Types.CardResponse>() {
             @Override
             public void onResponse(Call<Types.CardResponse> call, Response<Types.CardResponse> response) {
                 updateCard.postValue(response.body());

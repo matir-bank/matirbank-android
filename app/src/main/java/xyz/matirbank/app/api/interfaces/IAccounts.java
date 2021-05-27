@@ -10,7 +10,6 @@ import retrofit2.http.Part;
 import retrofit2.http.Query;
 import xyz.matirbank.app.api.entities.accounts.requests.LoginRequest;
 import xyz.matirbank.app.api.entities.accounts.requests.RegisterRequest;
-import xyz.matirbank.app.api.entities.Types;
 
 public interface IAccounts {
 

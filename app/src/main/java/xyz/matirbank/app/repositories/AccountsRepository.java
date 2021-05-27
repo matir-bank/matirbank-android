@@ -8,7 +8,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import xyz.matirbank.app.ThisApplication;
-import xyz.matirbank.app.api.entities.Types;
+import xyz.matirbank.app.api.interfaces.Types;
 import xyz.matirbank.app.api.interfaces.IAccounts;
 import xyz.matirbank.app.api.entities.accounts.requests.LoginRequest;
 import xyz.matirbank.app.api.entities.accounts.requests.RegisterRequest;

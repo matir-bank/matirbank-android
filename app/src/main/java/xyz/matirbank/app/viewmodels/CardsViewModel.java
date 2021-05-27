@@ -6,7 +6,7 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 
-import xyz.matirbank.app.api.entities.Types;
+import xyz.matirbank.app.api.interfaces.Types;
 import xyz.matirbank.app.api.entities.cards.requests.CardRequest;
 import xyz.matirbank.app.repositories.CardsRepository;
 
@@ -37,8 +37,8 @@ public class CardsViewModel extends AndroidViewModel {
         cardsRepository.readCard(request);
     }
 
-    public void updateCard(String request) {
-        cardsRepository.updateCard(request);
+    public void updateCard(String request, CardRequest requestBody) {
+        cardsRepository.updateCard(request, requestBody);
     }
 
     public void deleteCard(String request) {

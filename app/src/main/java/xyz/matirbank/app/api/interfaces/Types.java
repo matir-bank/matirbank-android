@@ -1,4 +1,4 @@
-package xyz.matirbank.app.api.entities;
+package xyz.matirbank.app.api.interfaces;
 
 import java.util.List;
 import xyz.matirbank.app.api.entities.base.ResponseContainer;

@@ -9,7 +9,7 @@ import androidx.lifecycle.LiveData;
 import okhttp3.MultipartBody;
 import xyz.matirbank.app.api.entities.accounts.requests.LoginRequest;
 import xyz.matirbank.app.api.entities.accounts.requests.RegisterRequest;
-import xyz.matirbank.app.api.entities.Types;
+import xyz.matirbank.app.api.interfaces.Types;
 import xyz.matirbank.app.repositories.AccountsRepository;
 
 public class AccountsViewModel extends AndroidViewModel {
