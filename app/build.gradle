@@ -67,6 +67,9 @@ dependencies {
     // Libraries for Navigation
     implementation 'com.gauravk.bubblenavigation:bubblenavigation:1.0.7'
 
+    // Libraries for Credit Card
+    implementation "com.github.10bis:compactCreditInput:2.0.4"
+
     // Libraries for Animation / Loading / Progressbar
     implementation 'com.github.ybq:Android-SpinKit:1.4.0'
 
